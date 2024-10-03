@@ -16,6 +16,8 @@ class DoAdvanceSeason extends Command<HotelManager> {
 
   @Override
   protected final void execute() {
+    
     //FIXME implement command
+    
   }
 }

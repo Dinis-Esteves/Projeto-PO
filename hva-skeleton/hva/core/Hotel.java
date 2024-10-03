@@ -10,7 +10,16 @@ public class Hotel implements Serializable {
   @Serial
   private static final long serialVersionUID = 202407081733L;
   
-  // FIXME define attributes
+  private Season _currentSeason = Season.SPRING;
+
+  public Hotel()  {
+    
+  }
+
+  public void nextSeason(){
+    _currentSeason = _currentSeason.next();
+    System.out.println(_currentSeason);
+  }
   // FIXME define contructor(s)
   // FIXME define more methods
   
