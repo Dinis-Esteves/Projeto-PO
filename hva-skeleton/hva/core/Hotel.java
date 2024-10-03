@@ -16,9 +16,9 @@ public class Hotel implements Serializable {
     
   }
 
-  public void nextSeason(){
+  public int nextSeason(){
     _currentSeason = _currentSeason.next();
-    System.out.println(_currentSeason);
+    return _currentSeason.ordinal();
   }
   // FIXME define contructor(s)
   // FIXME define more methods
