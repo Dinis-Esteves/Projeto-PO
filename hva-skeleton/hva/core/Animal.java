@@ -6,6 +6,6 @@ public class Animal extends HotelEntity {
 
     public Animal(String id, String name, String species) {
         super(id, name);
-        _specie = species;
+    _specie = species;
     }
 }

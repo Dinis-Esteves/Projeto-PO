@@ -9,8 +9,12 @@ public class Hotel implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 202407081733L;
-  
+
   private Season _currentSeason = Season.SPRING;
+  private HashSet<Vaccine> _vacinnes;
+  private HashSet<Animal> _animals;
+  private HashSet<Species> _species;
+  private HashSet<Employee> _employees;
 
   public Hotel()  {
     
