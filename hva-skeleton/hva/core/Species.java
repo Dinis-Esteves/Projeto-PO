@@ -9,6 +9,7 @@ public class Species extends HotelEntity{
     
     public Species(String id, String name) {
         super(id, name);
+        // Pus hashSet por hora, precisa ser discutido
         _animals = new HashSet<Animal>(10);
     }
 }
