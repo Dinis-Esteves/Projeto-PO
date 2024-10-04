@@ -11,13 +11,27 @@ import pt.tecnico.uilib.menus.CommandException;
  **/
 class DoRegisterHabitat extends Command<Hotel> {
 
+  private Hotel _receiver;
+
   DoRegisterHabitat(Hotel receiver) {
     super(Label.REGISTER_HABITAT, receiver);
-    //FIXME add command fields
+    addStringField("id", "Introduza um ID: ");
+    addStringField("name", "Introduza um nome: ");
+    addIntegerField("area", "Introduza uma area: ");
+    _receiver = receiver;
+
   }
   
   @Override
   protected void execute() throws CommandException {
-    //FIXME implement command
+    String id = stringField("id");
+    String name = stringField("name");
+    Integer area = integerField("area");
+
+    try {
+      _receiver.registerHabitat(id, name, area);
+    } catch (hva.core.exception.DuplicateHabitatKeyExceptionCore d) {
+      throw new DuplicateHabitatKeyException(id);
+    }
   }
 }
