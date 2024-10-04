@@ -20,14 +20,20 @@ public class Hotel implements Serializable {
   private LinkedList<VaccineApplication> _applications;
 
   public Hotel()  {
-    
+    _vacinnes = new HashSet<Vaccine>(20);
+    _animals = new HashSet<Animal>(20);
+    _species = new HashSet<Species>(20);
+    _employees = new HashSet<Employee>(20);
+    _habitats = new HashSet<Habitat>(20);
+    _trees = new HashSet<Tree>(20);
+    _applications = new LinkedList<VaccineApplication>();
   }
+
 
   public int nextSeason(){
     _currentSeason = _currentSeason.next();
     return _currentSeason.ordinal();
   }
-  // FIXME define contructor(s)
   // FIXME define more methods
   
   /**
