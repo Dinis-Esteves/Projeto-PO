@@ -2,6 +2,8 @@ package hva.core;
 
 abstract class Employee extends HotelEntity {
 
+    private Hotel _hotel;
+
     protected Employee(String id, String name) {
         super(id, name);
     }

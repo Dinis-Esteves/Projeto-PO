@@ -1,11 +1,16 @@
 package hva.core;
 
+import java.util.LinkedList;
+
 public class Animal extends HotelEntity {
     
-    String _specie;
+    private Species _specie;
+    private LinkedList<VaccineApplication> _vaccines;
 
-    public Animal(String id, String name, String species) {
+
+    public Animal(String id, String name, Species species) {
         super(id, name);
-    _specie = species;
+        _specie = species;
+        _vaccines = new LinkedList<VaccineApplication>();
     }
 }

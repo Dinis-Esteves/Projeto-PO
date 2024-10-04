@@ -5,5 +5,4 @@ public enum VaccinationResult {
     CONFUSÃO,
     ACIDENTE,
     ERRO;
-    
 }

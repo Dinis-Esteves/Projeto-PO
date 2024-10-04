@@ -15,6 +15,9 @@ public class Hotel implements Serializable {
   private HashSet<Animal> _animals;
   private HashSet<Species> _species;
   private HashSet<Employee> _employees;
+  private HashSet<Habitat> _habitats;
+  private HashSet<Tree> _trees;
+  private LinkedList<VaccineApplication> _applications;
 
   public Hotel()  {
     
