@@ -55,6 +55,7 @@ public class Hotel implements Serializable {
    * @throws IOException if there is an IO erro while processing the text file
    **/
   void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */  {
-    //FIXME implement method
+    Parser parser = new Parser(this);
+    parser.parseFile(filename);
   }
 }
