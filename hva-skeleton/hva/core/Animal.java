@@ -14,9 +14,6 @@ public class Animal extends HotelEntity {
         _vaccines = new LinkedList<VaccineApplication>();
     }
 
-
-
-
     @Override
     public String toString() {
         return "ANIMAL|" + super.getId() + "|" + super.getName()  + "|" 

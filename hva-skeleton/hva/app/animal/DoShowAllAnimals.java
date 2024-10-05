@@ -11,7 +11,7 @@ import pt.tecnico.uilib.menus.CommandException;
 /**
  * Show all animals registered in this zoo hotel.
  */
-public class DoShowAllAnimals extends Command<Hotel> {
+class DoShowAllAnimals extends Command<Hotel> {
 
     public DoShowAllAnimals(Hotel receiver) {
     super(Label.SHOW_ALL_ANIMALS, receiver);
