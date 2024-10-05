@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.FileReader;
 
 import hva.core.exception.DuplicateHabitatKeyExceptionCore;
+import hva.app.exception.DuplicateEmployeeKeyException;
 import hva.core.exception.DuplicateAnimalKeyExceptionCore;
+import hva.core.exception.DuplicateEmployeeKeyExceptionCore;
 import hva.core.exception.SpeciesKeyNotFoundException;
 import hva.core.exception.UnknownHabitatKeyExceptionCore;
 import hva.core.exception.UnrecognizedEntryException;
@@ -53,7 +55,7 @@ public class Parser {
             String speciesId = components[3];
             String habitatId = components[4];
 
-            Animal animal = _hotel.registerAnimal(id, name, speciesId, habitatId);
+            _hotel.registerAnimal(id, name, speciesId, habitatId);
         } catch (DuplicateAnimalKeyExceptionCore | SpeciesKeyNotFoundException | UnknownHabitatKeyExceptionCore e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e);
         }
@@ -72,7 +74,7 @@ public class Parser {
             String name = components[2];
             int area = Integer.parseInt(components[3]);
 
-            Habitat hab = _hotel.registerHabitat(id, name, area);
+            _hotel.registerHabitat(id, name, area);
 
             if (components.length == 5) {
                 String[] listOfTree = components[4].split(",");
@@ -85,7 +87,17 @@ public class Parser {
         }
 
     }
-    private void parseEmployee(String[] components, String EmployeeType) throws UnrecognizedEntryException {}
+    private void parseEmployee(String[] components, String EmployeeType) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+
+            _hotel.registerEmployee(id, name, EmployeeType);
+
+        } catch (DuplicateEmployeeKeyExceptionCore e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e);
+        }
+    }
     private void parseVaccine(String[] components) throws UnrecognizedEntryException {}
 
 }
