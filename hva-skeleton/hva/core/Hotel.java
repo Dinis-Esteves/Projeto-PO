@@ -3,7 +3,6 @@ package hva.core;
 import hva.core.exception.*;
 import java.io.*;
 import java.util.*;
-// FIXME import classes
 
 public class Hotel implements Serializable {
 
@@ -77,8 +76,22 @@ public class Hotel implements Serializable {
     return habitat;
   }
 
+  public Employee registerEmployee(String id, String name, String type) throws DuplicateEmployeeKeyExceptionCore{
 
-  // FIXME define more methods
+    if (_employees.containsKey(id)) {
+        throw new DuplicateEmployeeKeyExceptionCore(id);
+    }
+
+    if (type.equalsIgnoreCase("VET")) {
+      Veterinarian vet = new Veterinarian(id, name);
+      _employees.put(id, vet);
+      return vet;
+    } else {
+      Zookeeper keeper = new Zookeeper(id, name);
+      _employees.put(id, keeper);
+      return keeper;
+    }
+  }
   
   /**
    * Read text input file and create corresponding domain entities.

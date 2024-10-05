@@ -50,8 +50,8 @@ public class Parser {
         try {
             String id = components[1];
             String name = components[2];
-            String habitatId = components[4];
             String speciesId = components[3];
+            String habitatId = components[4];
 
             Animal animal = _hotel.registerAnimal(id, name, speciesId, habitatId);
         } catch (DuplicateAnimalKeyExceptionCore | SpeciesKeyNotFoundException | UnknownHabitatKeyExceptionCore e) {
