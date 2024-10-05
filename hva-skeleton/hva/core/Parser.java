@@ -3,7 +3,11 @@ package hva.core;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
+
 import hva.core.exception.DuplicateHabitatKeyExceptionCore;
+import hva.core.exception.DuplicateAnimalKeyExceptionCore;
+import hva.core.exception.SpeciesKeyNotFoundException;
+import hva.core.exception.UnknownHabitatKeyExceptionCore;
 import hva.core.exception.UnrecognizedEntryException;
 
 public class Parser {
@@ -42,8 +46,25 @@ public class Parser {
     }
 
     
-    private void parseAnimal(String[] components) throws UnrecognizedEntryException {}
-    private void parseSpecies(String[] components) throws UnrecognizedEntryException {}
+    private void parseAnimal(String[] components) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+            String habitatId = components[4];
+            String speciesId = components[3];
+
+            Animal animal = _hotel.registerAnimal(id, name, speciesId, habitatId);
+        } catch (DuplicateAnimalKeyExceptionCore | SpeciesKeyNotFoundException | UnknownHabitatKeyExceptionCore e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e);
+        }
+    }
+    
+    private void parseSpecies(String[] components) throws UnrecognizedEntryException {
+        String id = components[1];
+        String name = components[2];
+        _hotel.registSpecies(id, name);
+        
+    }
     private void parseTree(String[] components) throws UnrecognizedEntryException {}
     private void parseHabitat(String[] components) throws UnrecognizedEntryException {
         try {

@@ -3,6 +3,7 @@ package hva.app.animal;
 import hva.core.Hotel;
 import hva.core.exception.DuplicateAnimalKeyExceptionCore;
 import hva.core.exception.SpeciesKeyNotFoundException;
+import hva.core.exception.UnknownHabitatKeyExceptionCore;
 
 import java.util.Scanner;
 
@@ -26,6 +27,7 @@ class DoRegisterAnimal extends Command<Hotel> {
     addStringField("id", "Introduza um ID: ");
     addStringField("name", "Introduza um nome: ");
     addStringField("speciesId", "Introduza o ID da especie: ");
+    addStringField("habitatId", "Introduza o ID do habitat: ");
   }
   
   @Override
@@ -33,24 +35,27 @@ class DoRegisterAnimal extends Command<Hotel> {
     String id = stringField("id");
     String name = stringField("name");
     String speciesId = stringField("speciesId");
+    String habitatId = stringField("habitatId");
 
     try {
-      _receiver.registerAnimal(id, name, speciesId);
+      _receiver.registerAnimal(id, name, speciesId, habitatId);
 
     } catch (DuplicateAnimalKeyExceptionCore e) {
-      throw new DuplicateAnimalKeyException(id);
-
+        throw new DuplicateAnimalKeyException(id);
+      
+    } catch (UnknownHabitatKeyExceptionCore e) {
+        throw new UnknownHabitatKeyException(habitatId);
+        
     } catch (SpeciesKeyNotFoundException e) {
-      Scanner inputReader = new Scanner(System.in);
-      System.out.print("Introduza o nome da Especie: ");
-      String speciesName = inputReader.next(); 
-      _receiver.registSpecies(e.getId(), speciesName);
-      try {
-        _receiver.registerAnimal(id, speciesName, speciesId);
-      }  catch (DuplicateAnimalKeyExceptionCore | SpeciesKeyNotFoundException d) {
-
-      } 
+        Scanner inputReader = new Scanner(System.in);
+        System.out.print("Introduza o nome da especie: ");
+        String speciesName = inputReader.next(); 
+        _receiver.registSpecies(e.getId(), speciesName);
+        try {
+          _receiver.registerAnimal(id, name, speciesId, habitatId);
+        }  catch (DuplicateAnimalKeyExceptionCore | SpeciesKeyNotFoundException | UnknownHabitatKeyExceptionCore d) {
+            System.err.print("Not Blank");
+        } 
     }
-
   }
 }

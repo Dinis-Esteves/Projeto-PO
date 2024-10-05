@@ -35,17 +35,22 @@ public class Hotel implements Serializable {
     return _currentSeason.ordinal();
   }
 
-  public Animal registerAnimal(String id, String name, String speciesId) throws DuplicateAnimalKeyExceptionCore, SpeciesKeyNotFoundException {
+  public Animal registerAnimal(String id, String name, String speciesId, String habitatId) throws DuplicateAnimalKeyExceptionCore, SpeciesKeyNotFoundException, UnknownHabitatKeyExceptionCore {
 
     if (_animals.containsKey(id))
       throw new DuplicateAnimalKeyExceptionCore(id);
-    if(!_species.containsKey(speciesId))
+    if (!_habitats.containsKey(habitatId))
+      throw new UnknownHabitatKeyExceptionCore(habitatId);
+    if (!_species.containsKey(speciesId))
       throw new SpeciesKeyNotFoundException(speciesId);
 
+
     Species species = _species.get(speciesId);
+    Habitat habitat = _habitats.get(habitatId);
     Animal animal = new Animal(id, name, species);
     _animals.put(id, animal);
     species.addAnimal(animal);
+    habitat.add(animal);
     return animal;
   }
 
@@ -57,6 +62,10 @@ public class Hotel implements Serializable {
 
   public Species getSpecies(String id)  {
     return _species.get(id);
+  }
+
+  public Habitat geHabitat(String id)  {
+    return _habitats.get(id);
   }
 
   public Habitat registerHabitat(String id, String name, int area) throws DuplicateHabitatKeyExceptionCore {
