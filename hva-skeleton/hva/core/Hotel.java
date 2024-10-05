@@ -46,7 +46,7 @@ public class Hotel implements Serializable {
 
     Species species = _species.get(speciesId);
     Habitat habitat = _habitats.get(habitatId);
-    Animal animal = new Animal(id, name, species);
+    Animal animal = new Animal(id, name, species, _habitats.get(habitatId));
     _animals.put(id, animal);
     species.addAnimal(animal);
     habitat.add(animal);
