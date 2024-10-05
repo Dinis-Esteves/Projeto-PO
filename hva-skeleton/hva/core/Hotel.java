@@ -71,6 +71,10 @@ public class Hotel implements Serializable {
     return _habitats.values();
   }
 
+  public Collection<Animal> getAnimals() {
+    return _animals.values();
+  }
+
   public Habitat registerHabitat(String id, String name, int area) throws DuplicateHabitatKeyExceptionCore {
     if (_habitats.containsKey(id))
       throw new DuplicateHabitatKeyExceptionCore(id);

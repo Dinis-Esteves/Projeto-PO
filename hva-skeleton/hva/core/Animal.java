@@ -13,4 +13,13 @@ public class Animal extends HotelEntity {
         _specie = species;
         _vaccines = new LinkedList<VaccineApplication>();
     }
+
+
+
+
+    @Override
+    public String toString() {
+        return "ANIMAL|" + super.getId() + "|" + super.getName()  + "|" 
+            + _specie.getId() + "|" /*+ getHistorialDeSaúde() + "|" + geHabitat(getId())*/;
+    }
 }
