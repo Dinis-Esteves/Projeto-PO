@@ -84,12 +84,14 @@ public class Hotel implements Serializable {
     return habitat;
   }
 
-  public Employee registerEmployee(String id, String name, String type) throws DuplicateEmployeeKeyExceptionCore{
+  public Employee registerEmployee(String id, String name, String type) throws DuplicateEmployeeKeyExceptionCore, UnrecognizedEntryException{
 
     if (_employees.containsKey(id)) {
-        throw new DuplicateEmployeeKeyExceptionCore(id);
+      throw new DuplicateEmployeeKeyExceptionCore(id);
+    } 
+    if (!type.equalsIgnoreCase("VET") & !type.equalsIgnoreCase("TRT")) {
+      throw new UnrecognizedEntryException(type);
     }
-
     if (type.equalsIgnoreCase("VET")) {
       Veterinarian vet = new Veterinarian(id, name);
       _employees.put(id, vet);
