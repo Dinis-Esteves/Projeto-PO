@@ -3,6 +3,10 @@ package hva.app.habitat;
 import hva.core.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import java.util.HashMap;
+import java.util.Map;
+import hva.core.Habitat;
+
 //FIXME add more imports if needed
 
 /**
@@ -15,7 +19,10 @@ class DoShowAllHabitats extends Command<Hotel> {
   }
   
   @Override
-  protected void execute() {
-    //FIXME implement command
+  protected void execute() throws CommandException {
+      HashMap<String, Habitat> habitats = _receiver.getHabitats();
+      for (Map.Entry<String, Habitat> entry : habitats.entrySet()) {
+          System.out.println("HABITAT" + "|" + entry.getKey() + "|" + entry.getValue().getArea()  + "|" + entry.getValue().getName());
+      }
   }
 }
