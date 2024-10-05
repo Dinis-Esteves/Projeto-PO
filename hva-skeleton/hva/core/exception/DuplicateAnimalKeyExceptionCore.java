@@ -1,10 +1,10 @@
 package hva.core.exception;
 
-public class DuplicateHabitatKeyExceptionCore extends Exception {
+public class DuplicateAnimalKeyExceptionCore extends Exception {
 
     private static final String ERROR_MESSAGE = "ID já Existe: ";
 
-    public DuplicateHabitatKeyExceptionCore(String id) {
+    public DuplicateAnimalKeyExceptionCore(String id) {
         super(ERROR_MESSAGE + id);
     }
     

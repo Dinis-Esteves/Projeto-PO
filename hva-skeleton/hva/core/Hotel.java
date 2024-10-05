@@ -35,16 +35,40 @@ public class Hotel implements Serializable {
     return _currentSeason.ordinal();
   }
 
-  public void registerAnimal() {
-    
+  public Animal registerAnimal(String id, String name, String speciesId) throws DuplicateAnimalKeyExceptionCore, SpeciesKeyNotFoundException {
+
+    if (_animals.containsKey(id))
+      throw new DuplicateAnimalKeyExceptionCore(id);
+    if(!_species.containsKey(speciesId))
+      throw new SpeciesKeyNotFoundException(speciesId);
+
+    Species species = _species.get(speciesId);
+    Animal animal = new Animal(id, name, species);
+    _animals.put(id, animal);
+    species.addAnimal(animal);
+    return animal;
   }
 
-  public void registerHabitat(String id, String name, int area) throws DuplicateHabitatKeyExceptionCore {
-    if (_habitats.containsKey(id))
-      throw new DuplicateHabitatKeyExceptionCore();
-      
-    _habitats.put(id, new Habitat(id, name, area));
+  public Species registSpecies(String id, String name) {
+    Species species = new Species(id, name);
+    _species.put(id, species);
+    return species;
   }
+
+  public Species getSpecies(String id)  {
+    return _species.get(id);
+  }
+
+  public Habitat registerHabitat(String id, String name, int area) throws DuplicateHabitatKeyExceptionCore {
+    if (_habitats.containsKey(id))
+      throw new DuplicateHabitatKeyExceptionCore(id);
+
+    Habitat habitat = new Habitat(id, name, area);
+    _habitats.put(id, habitat);
+    return habitat;
+  }
+
+
   // FIXME define more methods
   
   /**

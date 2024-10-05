@@ -12,4 +12,8 @@ public class Species extends HotelEntity{
         // Pus hashSet por hora, precisa ser discutido
         _animals = new HashSet<Animal>(10);
     }
+
+    public void addAnimal(Animal animal) {
+        _animals.add(animal);
+    }
 }
