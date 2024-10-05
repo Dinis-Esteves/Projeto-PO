@@ -11,11 +11,8 @@ import pt.tecnico.uilib.menus.CommandException;
  **/
 class DoAdvanceSeason extends Command<HotelManager> {
 
-  private HotelManager _receiver;
-
   DoAdvanceSeason(HotelManager receiver) {
     super(Label.ADVANCE_SEASON, receiver);
-    _receiver = receiver;
     //FIXME add command fields
   }
 

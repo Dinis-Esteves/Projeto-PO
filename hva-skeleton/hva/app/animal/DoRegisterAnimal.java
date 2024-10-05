@@ -19,12 +19,8 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoRegisterAnimal extends Command<Hotel> {
 
-  private Hotel _receiver;
-
   DoRegisterAnimal(Hotel receiver) {
     super(Label.REGISTER_ANIMAL, receiver);
-    _receiver = receiver;
-    addStringField("id", "Introduza um ID: ");
     addStringField("name", "Introduza um nome: ");
     addStringField("speciesId", "Introduza o ID da especie: ");
     addStringField("habitatId", "Introduza o ID do habitat: ");

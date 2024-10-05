@@ -12,15 +12,11 @@ import pt.tecnico.uilib.menus.CommandException;
  **/
 class DoRegisterHabitat extends Command<Hotel> {
 
-  private Hotel _receiver;
-
   DoRegisterHabitat(Hotel receiver) {
     super(Label.REGISTER_HABITAT, receiver);
     addStringField("id", "Introduza um ID: ");
     addStringField("name", "Introduza um nome: ");
     addIntegerField("area", "Introduza uma area: ");
-    _receiver = receiver;
-
   }
   
   @Override

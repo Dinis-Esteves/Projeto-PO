@@ -5,7 +5,6 @@ import java.util.HashSet;
 public class Habitat extends HotelEntity{
     
     private int _area;
-    private String _name;
     private HashSet<Species> _positive;
     private HashSet<Species> _negative;
     private HashSet<Animal> _animals;
@@ -13,14 +12,13 @@ public class Habitat extends HotelEntity{
 
     protected Habitat(String id, String name, int area) {
         super(id, name);
-        _name = name;
         _area = area;
         _positive = new HashSet<Species>(10);
         _negative = new HashSet<Species>(10);
         _animals = new HashSet<Animal>(10);
         _trees = new HashSet<Tree>(10);
     }
-    
+
     void remove(Animal animal) {
         _animals.remove(animal);
     }
@@ -33,7 +31,8 @@ public class Habitat extends HotelEntity{
         return _area;
     }
 
-    public String getName(){
-        return _name;
+    @Override
+    public String toString() {
+        return "HABITAT" + "|" + super.getId() + "|" + super.getName()  + "|" + _area + "|" + _trees.size();
     }
 }
