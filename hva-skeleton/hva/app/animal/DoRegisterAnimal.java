@@ -21,9 +21,9 @@ class DoRegisterAnimal extends Command<Hotel> {
 
   DoRegisterAnimal(Hotel receiver) {
     super(Label.REGISTER_ANIMAL, receiver);
-    addStringField("id", "Introduza um id: ");
-    addStringField("name", "Introduza um nome: ");
-    addStringField("speciesId", "Introduza o ID da especie: ");
+    addStringField("id", Prompt.animalKey());
+    addStringField("name", Prompt.animalName());
+    addStringField("speciesId", Prompt.speciesKey());
     addStringField("habitatId", "Introduza o ID do habitat: ");
   }
   
@@ -45,7 +45,7 @@ class DoRegisterAnimal extends Command<Hotel> {
         
     } catch (SpeciesKeyNotFoundException e) {
         Scanner inputReader = new Scanner(System.in);
-        System.out.print("Introduza o nome da especie: ");
+        System.out.print(Prompt.speciesName());
         String speciesName = inputReader.next(); 
         _receiver.registSpecies(e.getId(), speciesName);
         try {

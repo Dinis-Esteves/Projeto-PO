@@ -18,9 +18,9 @@ class DoRegisterEmployee extends Command<Hotel> {
 
   DoRegisterEmployee(Hotel receiver) {
     super(Label.REGISTER_EMPLOYEE, receiver);
-    addStringField("id", "Introduza um id: ");
-    addStringField("name", "Introduza um nome: ");
-    addStringField("type", "Introduza a função(TRT/VET): ");
+    addStringField("id", Prompt.employeeKey());
+    addStringField("name", Prompt.employeeName());
+    addStringField("type", Prompt.employeeType());
   }
   
   @Override
@@ -38,7 +38,7 @@ class DoRegisterEmployee extends Command<Hotel> {
     } catch (UnrecognizedEntryException e) {
         while (!type.equalsIgnoreCase("VET") & !type.equalsIgnoreCase("TRT")) {
           Scanner inputReader = new Scanner(System.in);
-          System.out.print("Introduza a função(TRT/VET): ");
+          System.out.print(Prompt.employeeType());
           type = inputReader.next(); 
         }
         try {

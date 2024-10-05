@@ -14,9 +14,9 @@ class DoRegisterHabitat extends Command<Hotel> {
 
   DoRegisterHabitat(Hotel receiver) {
     super(Label.REGISTER_HABITAT, receiver);
-    addStringField("id", "Introduza um ID: ");
-    addStringField("name", "Introduza um nome: ");
-    addIntegerField("area", "Introduza uma area: ");
+    addStringField("id", Prompt.habitatKey());
+    addStringField("name", Prompt.habitatName());
+    addIntegerField("area", Prompt.habitatArea());
   }
   
   @Override
