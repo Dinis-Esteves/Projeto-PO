@@ -21,6 +21,7 @@ class DoRegisterAnimal extends Command<Hotel> {
 
   DoRegisterAnimal(Hotel receiver) {
     super(Label.REGISTER_ANIMAL, receiver);
+    addStringField("id", "Introduza um id: ");
     addStringField("name", "Introduza um nome: ");
     addStringField("speciesId", "Introduza o ID da especie: ");
     addStringField("habitatId", "Introduza o ID do habitat: ");
