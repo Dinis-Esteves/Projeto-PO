@@ -1,6 +1,6 @@
 package hva.core;
 
-abstract class Employee extends HotelEntity {
+public abstract class Employee extends HotelEntity {
 
     private Hotel _hotel;
 
@@ -9,7 +9,9 @@ abstract class Employee extends HotelEntity {
     }
 
     abstract int computeSatisfaction();
-    
+
+    @Override
+    public abstract String toString();
 
     abstract void addResponsabilitie(String id);
 }

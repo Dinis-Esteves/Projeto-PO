@@ -1,7 +1,14 @@
 package hva.app.employee;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import hva.core.Employee;
 import hva.core.Hotel;
 import pt.tecnico.uilib.menus.Command;
+import pt.tecnico.uilib.menus.CommandException;
+
+
 //FIXME add more imports if needed
 
 /**
@@ -14,7 +21,13 @@ class DoShowAllEmployees extends Command<Hotel> {
   }
   
   @Override
-  protected void execute() {
-    //FIXME implement command
+  protected void execute() throws CommandException{
+  Iterator<Employee> employees = _receiver.getEmployees().iterator();
+
+    while (employees.hasNext()) {
+      Employee currentEmployee = employees.next();
+      _display.addLine(currentEmployee.toString());
+    }
+    _display.display();
   }
 }
