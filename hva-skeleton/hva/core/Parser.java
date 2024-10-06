@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.FileReader;
 
 import hva.core.exception.DuplicateHabitatKeyExceptionCore;
-import hva.app.exception.DuplicateEmployeeKeyException;
+import hva.core.exception.DuplicateVaccineKeyExceptionCore;
+import hva.app.exception.DuplicateVaccineKeyException;
 import hva.core.exception.DuplicateAnimalKeyExceptionCore;
 import hva.core.exception.DuplicateEmployeeKeyExceptionCore;
 import hva.core.exception.SpeciesKeyNotFoundException;
@@ -65,8 +66,8 @@ public class Parser {
         String id = components[1];
         String name = components[2];
         _hotel.registSpecies(id, name);
-        
     }
+
     private void parseTree(String[] components) throws UnrecognizedEntryException {}
     private void parseHabitat(String[] components) throws UnrecognizedEntryException {
         try {
@@ -98,6 +99,20 @@ public class Parser {
             throw new UnrecognizedEntryException("Invalid entry: " + e);
         }
     }
-    private void parseVaccine(String[] components) throws UnrecognizedEntryException {}
+    private void parseVaccine(String[] components) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+            String[] listOfSpecies = {};
+
+            if (components.length == 4) {
+                listOfSpecies = components[3].split(",");
+            }
+
+            _hotel.registerVaccine(id, name, listOfSpecies);
+        } catch (DuplicateVaccineKeyExceptionCore | SpeciesKeyNotFoundException e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e);
+        }
+    }
 
 }

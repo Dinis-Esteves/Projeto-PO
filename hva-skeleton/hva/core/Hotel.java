@@ -102,7 +102,28 @@ public class Hotel implements Serializable {
       return keeper;
     }
   }
-  
+ 
+  public Vaccine registerVaccine(String id, String name, String[] species) throws DuplicateVaccineKeyExceptionCore, SpeciesKeyNotFoundException {
+    if (_vacinnes.containsKey(id)) {
+      throw new DuplicateVaccineKeyExceptionCore(id);
+    }
+
+    if (species.length == 0) {
+      Vaccine vaccine = new Vaccine(id, name);
+      _vacinnes.put(id, vaccine);
+      return vaccine;
+    }
+
+    for (String speciesId : species) {
+      if (!_species.containsKey(speciesId))
+        throw new SpeciesKeyNotFoundException(speciesId);
+    }
+
+    Vaccine vaccine = new Vaccine(id, name, species);
+    _vacinnes.put(id, vaccine);
+    return vaccine;
+  }
+
   /**
    * Read text input file and create corresponding domain entities.
    * 
