@@ -3,6 +3,7 @@ package hva.core;
 import hva.core.exception.*;
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hotel implements Serializable {
 
@@ -68,11 +69,15 @@ public class Hotel implements Serializable {
   }
 
   public Collection<Habitat> getHabitats() {
-    return _habitats.values();
+    return _habitats.values().stream()
+    .sorted(Comparator.comparing(Habitat::getId, String.CASE_INSENSITIVE_ORDER))
+    .collect(Collectors.toList());
   }
 
   public Collection<Animal> getAnimals() {
-    return _animals.values();
+    return _animals.values().stream()
+    .sorted(Comparator.comparing(Animal::getId, String.CASE_INSENSITIVE_ORDER))
+    .collect(Collectors.toList());
   }
 
   public Habitat registerHabitat(String id, String name, int area) throws DuplicateHabitatKeyExceptionCore {
