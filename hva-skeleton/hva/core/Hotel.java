@@ -68,6 +68,10 @@ public class Hotel implements Serializable {
     return _habitats.get(id);
   }
 
+  public Collection<Vaccine> getVaccines() {
+    return _vacinnes.values();
+  }
+
   public Collection<Employee> getEmployees() {
     return _employees.values().stream()
     .sorted(Comparator.comparing(Employee::getId, String.CASE_INSENSITIVE_ORDER))

@@ -25,4 +25,10 @@ public class Vaccine extends HotelEntity{
     public void addSpecies(String[] species) {
         Collections.addAll(_species, species);
     }
+
+
+    @Override
+    public String toString() {
+        return "VACINA" + "|" + super.getId() + "|" + super.getName() + "|" + _applications.size() + "|" + _species;
+    }
 }
