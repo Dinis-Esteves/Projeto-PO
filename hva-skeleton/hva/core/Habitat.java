@@ -31,6 +31,10 @@ public class Habitat extends HotelEntity{
         return _area;
     }
 
+    public void setArea(int newArea) {
+        _area = newArea;
+    }
+
     @Override
     public String toString() {
         return "HABITAT" + "|" + super.getId() + "|" + super.getName()  + "|" + _area + "|" + _trees.size();

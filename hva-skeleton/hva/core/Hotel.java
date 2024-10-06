@@ -135,6 +135,14 @@ public class Hotel implements Serializable {
     return vaccine;
   }
 
+  public void changeHabitatArea(String id, int area) throws UnknownHabitatKeyExceptionCore{
+    if (!_habitats.containsKey(id)) {
+      throw new UnknownHabitatKeyExceptionCore(id);
+    }
+
+    _habitats.get(id).setArea(area);
+  }
+
   /**
    * Read text input file and create corresponding domain entities.
    * 

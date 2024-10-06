@@ -1,0 +1,20 @@
+*** tests/A-01-22-M-ok.out	2024-10-06 21:01:08.182987893 +0100
+--- tests/A-01-22-M-ok.outhyp	2024-10-06 21:03:59.091237983 +0100
+***************
+*** 16,23 ****
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: VACINA|V3|Tétano|0
+! Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+--- 16,22 ----
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
