@@ -29,6 +29,12 @@ public class Vaccine extends HotelEntity{
 
     @Override
     public String toString() {
-        return "VACINA" + "|" + super.getId() + "|" + super.getName() + "|" + _applications.size() + "|" + _species;
+        String vaccine = "VACINA" + "|" + super.getId() + "|" + super.getName() + "|" + _applications.size();
+
+        if (_species.size() != 0) {
+            vaccine += "|" + String.join(",", _species);
+        }
+        
+        return vaccine;
     }
 }
