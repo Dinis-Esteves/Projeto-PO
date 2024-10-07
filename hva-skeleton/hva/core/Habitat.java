@@ -1,6 +1,9 @@
 package hva.core;
 
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class Habitat extends HotelEntity{
     
@@ -33,6 +36,12 @@ public class Habitat extends HotelEntity{
 
     public void setArea(int newArea) {
         _area = newArea;
+    }
+
+    public Collection<Animal> getAnimals() {
+        return _animals.stream()
+        .sorted(Comparator.comparing(Animal::getId, String.CASE_INSENSITIVE_ORDER))
+        .collect(Collectors.toList());
     }
 
     @Override

@@ -68,7 +68,9 @@ public class Parser {
         _hotel.registSpecies(id, name);
     }
 
-    private void parseTree(String[] components) throws UnrecognizedEntryException {}
+    private void parseTree(String[] components) throws UnrecognizedEntryException {
+        
+    }
     private void parseHabitat(String[] components) throws UnrecognizedEntryException {
         try {
             String id = components[1];

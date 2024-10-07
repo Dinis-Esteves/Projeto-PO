@@ -93,6 +93,14 @@ public class Hotel implements Serializable {
     .collect(Collectors.toList());
   }
 
+  public Collection<Animal> getAnimalsFromHabitat(String id) throws UnknownHabitatKeyExceptionCore{
+    if (!_habitats.containsKey(id)) {
+      throw new UnknownHabitatKeyExceptionCore(id);
+    }
+
+    return _habitats.get(id).getAnimals();
+  }
+
   public Habitat registerHabitat(String id, String name, int area) throws DuplicateHabitatKeyExceptionCore {
     if (_habitats.containsKey(id))
       throw new DuplicateHabitatKeyExceptionCore(id);
