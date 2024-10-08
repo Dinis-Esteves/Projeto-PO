@@ -2,6 +2,8 @@ package hva.core;
 
 import hva.core.exception.*;
 import java.io.*;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 // FIXME import classes
 
@@ -12,6 +14,7 @@ import java.io.*;
 public class HotelManager {
   /** The current zoo hotel */ // Should we initialize this field?
   private Hotel _hotel = new Hotel();
+  private String _filename = new String();
   
   /**
    * Saves the serialized application's state into the file associated to the current network.
@@ -21,7 +24,14 @@ public class HotelManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    **/
   public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
+    if (_filename.isBlank()) {
+      throw new MissingFileAssociationException();
+    }
+    try (FileOutputStream fpout = new FileOutputStream(_filename); DeflaterOutputStream dOut = new DeflaterOutputStream(fpout); 
+        ObjectOutputStream obOut = new ObjectOutputStream(dOut);) {
+          obOut.writeObject(_hotel);
+        }
+
   }
   
   /**
@@ -34,7 +44,8 @@ public class HotelManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    **/
   public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
+    _filename = filename;
+    save();
   }
   
   /**
@@ -44,7 +55,14 @@ public class HotelManager {
    *         an error while processing this file.
    **/
   public void load(String filename) throws UnavailableFileException {
-    // FIXME implement serialization method
+    try (FileInputStream fin = new FileInputStream(filename); InflaterInputStream dIn = new InflaterInputStream(fin);
+        ObjectInputStream obIn = new ObjectInputStream(dIn)) {
+          _hotel = (Hotel) obIn.readObject();
+        } catch (Exception e) {
+          System.out.println(e.toString());
+          throw new UnavailableFileException(filename);
+        }
+
   }
   
   /**
@@ -70,5 +88,10 @@ public class HotelManager {
    **/
   public final Hotel getHotel() {
     return _hotel;
+  }
+
+  public void createNewHotel() {
+    _hotel = new Hotel();
+    _filename = new String();
   }
 }

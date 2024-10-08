@@ -1,11 +1,14 @@
 package hva.core;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
-public class Habitat extends HotelEntity{
+public class Habitat extends HotelEntity {
+
     
     private int _area;
     private HashSet<Species> _positive;
@@ -13,7 +16,7 @@ public class Habitat extends HotelEntity{
     private HashSet<Animal> _animals;
     private HashSet<Tree> _trees;
 
-    protected Habitat(String id, String name, int area) {
+    public Habitat(String id, String name, int area) {
         super(id, name);
         _area = area;
         _positive = new HashSet<Species>(10);

@@ -4,9 +4,6 @@ import hva.core.Hotel;
 import hva.core.exception.DuplicateAnimalKeyExceptionCore;
 import hva.core.exception.SpeciesKeyNotFoundException;
 import hva.core.exception.UnknownHabitatKeyExceptionCore;
-
-import java.util.Scanner;
-
 import hva.app.exception.DuplicateAnimalKeyException;
 import hva.app.exception.UnknownHabitatKeyException;
 import pt.tecnico.uilib.forms.Form;
@@ -44,9 +41,7 @@ class DoRegisterAnimal extends Command<Hotel> {
         throw new UnknownHabitatKeyException(habitatId);
         
     } catch (SpeciesKeyNotFoundException e) {
-        Scanner inputReader = new Scanner(System.in);
-        System.out.print(Prompt.speciesName());
-        String speciesName = inputReader.next(); 
+        String speciesName = Form.requestString(Prompt.speciesKey());
         _receiver.registSpecies(e.getId(), speciesName);
         try {
           _receiver.registerAnimal(id, name, speciesId, habitatId);

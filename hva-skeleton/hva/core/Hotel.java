@@ -158,6 +158,11 @@ public class Hotel implements Serializable {
     _habitats.get(id).setArea(area);
   }
 
+  public boolean isHotelEmpty() {
+    return _animals.isEmpty() & _applications.isEmpty() & _employees.isEmpty() & _trees.isEmpty() & _species.isEmpty() &
+    _habitats.isEmpty() & _vacinnes.isEmpty();
+  }
+
   /**
    * Read text input file and create corresponding domain entities.
    * 

@@ -1,6 +1,9 @@
 package hva.core;
 
-public abstract class Employee extends HotelEntity {
+import java.io.Serial;
+import java.io.Serializable;
+
+public abstract class Employee extends HotelEntity{
 
     private Hotel _hotel;
 

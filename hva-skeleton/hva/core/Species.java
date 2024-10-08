@@ -1,10 +1,13 @@
 package hva.core;
 
+import java.io.Serializable;
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
 
-public class Species extends HotelEntity{
+public class Species extends HotelEntity {
+
     private Set<Animal> _animals;
     
     public Species(String id, String name) {

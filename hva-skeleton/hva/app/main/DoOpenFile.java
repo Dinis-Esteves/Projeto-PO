@@ -14,16 +14,17 @@ import pt.tecnico.uilib.menus.CommandException;
 class DoOpenFile extends Command<HotelManager> {
   DoOpenFile(HotelManager receiver) {
     super(Label.OPEN_FILE, receiver);
+    addStringField("filename", Prompt.openFile());
   }
 
   @Override
   protected final void execute() throws CommandException {
-    /*
+
       try {
-      //FIXME implement command
+        String filename = stringField("filename");
+        _receiver.load(filename);
       } catch (UnavailableFileException efe) {
       throw new FileOpenFailedException(efe);
       }
-    */
   }
 }

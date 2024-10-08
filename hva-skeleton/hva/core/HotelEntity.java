@@ -1,11 +1,15 @@
 package hva.core;
 
-abstract class HotelEntity {
+import java.io.Serializable;
+
+abstract class HotelEntity implements Serializable {
+
+    private static final long serialVersionUID = 9242527722L;
 
     private String _id;
     private String _name;
     
-    protected HotelEntity(String id, String name)  {
+    protected HotelEntity(String id, String name) {
         _id = id;
         _name = name;
     }

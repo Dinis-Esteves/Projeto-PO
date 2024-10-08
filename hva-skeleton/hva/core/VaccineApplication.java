@@ -1,7 +1,10 @@
 package hva.core;
 
+import java.io.Serializable;
+import java.io.Serial;
+
 public class VaccineApplication {
-    
+
     private VaccinationResult _result;
     private Vaccine _vaccine;
     private Veterinarian _veterinarian;
