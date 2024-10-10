@@ -41,7 +41,7 @@ class DoRegisterAnimal extends Command<Hotel> {
         throw new UnknownHabitatKeyException(habitatId);
         
     } catch (SpeciesKeyNotFoundException e) {
-        String speciesName = Form.requestString(Prompt.speciesKey());
+        String speciesName = Form.requestString(Prompt.speciesName());
         _receiver.registSpecies(e.getId(), speciesName);
         try {
           _receiver.registerAnimal(id, name, speciesId, habitatId);

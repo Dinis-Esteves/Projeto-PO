@@ -21,7 +21,7 @@ class DoNewFile extends Command<HotelManager> {
   @Override
   protected final void execute() throws CommandException {
     Hotel hotel = (Hotel) _receiver.getHotel();
-    if (!hotel.isHotelEmpty()) {
+    if (!(hotel.isHotelEmpty()) && _receiver.hasUnsavedModifications()) {
 
       boolean resp = Form.confirm(Prompt.saveBeforeExit());
 
@@ -32,15 +32,15 @@ class DoNewFile extends Command<HotelManager> {
           try {
             _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
           } catch (Exception d) {
-            System.err.println("Exception Here: " + d.toString());
+            System.err.println(Message.fileNotFound());
           }
           
     
         } catch (IOException e) {
-            System.err.println("IOEXCEPTION");
+            System.err.println(Message.fileNotFound());
         }
       }
-      _receiver.createNewHotel();
     }
+    _receiver.createNewHotel();
   }
 } 

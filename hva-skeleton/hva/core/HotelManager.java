@@ -15,6 +15,7 @@ public class HotelManager {
   /** The current zoo hotel */ // Should we initialize this field?
   private Hotel _hotel = new Hotel();
   private String _filename = new String();
+  private int _savedHash = 0;
   
   /**
    * Saves the serialized application's state into the file associated to the current network.
@@ -30,6 +31,7 @@ public class HotelManager {
     try (FileOutputStream fpout = new FileOutputStream(_filename); DeflaterOutputStream dOut = new DeflaterOutputStream(fpout); 
         ObjectOutputStream obOut = new ObjectOutputStream(dOut);) {
           obOut.writeObject(_hotel);
+          _savedHash = _hotel.hashCode();
         }
 
   }
@@ -58,6 +60,7 @@ public class HotelManager {
     try (FileInputStream fin = new FileInputStream(filename); InflaterInputStream dIn = new InflaterInputStream(fin);
         ObjectInputStream obIn = new ObjectInputStream(dIn)) {
           _hotel = (Hotel) obIn.readObject();
+          _savedHash = _hotel.hashCode();
         } catch (Exception e) {
           System.out.println(e.toString());
           throw new UnavailableFileException(filename);
@@ -93,5 +96,10 @@ public class HotelManager {
   public void createNewHotel() {
     _hotel = new Hotel();
     _filename = new String();
+    _savedHash = 0;
+  }
+
+  public boolean hasUnsavedModifications() {
+    return !(_savedHash == _hotel.hashCode());
   }
 }

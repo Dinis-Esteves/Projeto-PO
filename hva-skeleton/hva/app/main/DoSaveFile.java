@@ -1,6 +1,7 @@
 package hva.app.main;
 
 import hva.app.exception.FileOpenFailedException;
+import hva.core.Hotel;
 import hva.core.HotelManager;
 import hva.core.exception.MissingFileAssociationException;
 import pt.tecnico.uilib.forms.Form;
@@ -20,18 +21,21 @@ class DoSaveFile extends Command<HotelManager> {
 
   @Override
   protected final void execute() {
-    try {
-      _receiver.save();
-    } catch (MissingFileAssociationException | FileNotFoundException e) {
+    Hotel hotel = (Hotel) _receiver.getHotel();
+    if (!hotel.isHotelEmpty() && _receiver.hasUnsavedModifications()) {
       try {
-        _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
-      } catch (Exception d) {
-        System.err.println(Message.fileNotFound());
+      _receiver.save();
+      } catch (MissingFileAssociationException | FileNotFoundException e) {
+          try {
+            _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
+          } catch (Exception d) {
+            System.err.println(Message.fileNotFound());
+          }
+        
+      } catch (IOException e) {
+          System.err.println(Message.fileNotFound());
       }
-      
-
-    } catch (IOException e) {
-        System.err.println(Message.fileNotFound());
     }
+
   }
 }
