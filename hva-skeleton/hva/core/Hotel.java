@@ -163,6 +163,11 @@ public class Hotel implements Serializable {
     _habitats.isEmpty() & _vacinnes.isEmpty();
   }
 
+  @Override
+  public int hashCode() {
+    return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +
+    _currentSeason.hashCode() + _species.hashCode() + _trees.hashCode();
+  }
   /**
    * Read text input file and create corresponding domain entities.
    * 

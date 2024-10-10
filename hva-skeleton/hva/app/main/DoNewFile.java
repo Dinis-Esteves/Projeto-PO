@@ -40,7 +40,9 @@ class DoNewFile extends Command<HotelManager> {
             System.err.println(Message.fileNotFound());
         }
       }
-    }
-    _receiver.createNewHotel();
   }
+      _receiver.createNewHotel();
+    }
+    
+  
 } 
