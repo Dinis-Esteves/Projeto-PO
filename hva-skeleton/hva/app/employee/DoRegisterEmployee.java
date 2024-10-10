@@ -20,7 +20,7 @@ class DoRegisterEmployee extends Command<Hotel> {
     super(Label.REGISTER_EMPLOYEE, receiver);
     addStringField("id", Prompt.employeeKey());
     addStringField("name", Prompt.employeeName());
-    addStringField("type", Prompt.employeeType());
+    addOptionField("type", Prompt.employeeType(), "VET", "TRT");
   }
   
   @Override
@@ -36,11 +36,6 @@ class DoRegisterEmployee extends Command<Hotel> {
         throw new DuplicateEmployeeKeyException(id);
 
     } catch (UnrecognizedEntryException e) {
-        while (!type.equalsIgnoreCase("VET") & !type.equalsIgnoreCase("TRT")) {
-          Scanner inputReader = new Scanner(System.in);
-          System.out.print(Prompt.employeeType());
-          type = inputReader.next(); 
-        }
         try {
           _receiver.registerEmployee(id, name, type);
         } catch (DuplicateEmployeeKeyExceptionCore | UnrecognizedEntryException d) {
