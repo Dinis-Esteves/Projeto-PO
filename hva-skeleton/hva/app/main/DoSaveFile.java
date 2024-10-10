@@ -26,12 +26,12 @@ class DoSaveFile extends Command<HotelManager> {
       try {
         _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
       } catch (Exception d) {
-        System.err.println("Exception Here: " + d.toString());
+        System.err.println(Message.fileNotFound());
       }
       
 
     } catch (IOException e) {
-        System.err.println("IOEXCEPTION");
+        System.err.println(Message.fileNotFound());
     }
   }
 }
