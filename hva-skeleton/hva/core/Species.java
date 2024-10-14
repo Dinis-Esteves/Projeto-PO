@@ -19,4 +19,8 @@ public class Species extends HotelEntity {
     public void addAnimal(Animal animal) {
         _animals.add(animal);
     }
+
+    public boolean equalSpecies(Species species) {
+        return this.getId().equalsIgnoreCase(species.getId());
+    }
 }

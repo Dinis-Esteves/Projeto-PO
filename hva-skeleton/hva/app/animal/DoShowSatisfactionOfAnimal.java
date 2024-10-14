@@ -1,5 +1,6 @@
 package hva.app.animal;
 
+import hva.core.Animal;
 import hva.core.Hotel;
 import hva.app.exception.UnknownAnimalKeyException;
 import pt.tecnico.uilib.menus.Command;
@@ -13,11 +14,20 @@ class DoShowSatisfactionOfAnimal extends Command<Hotel> {
 
   DoShowSatisfactionOfAnimal(Hotel receiver) {
     super(Label.SHOW_SATISFACTION_OF_ANIMAL, receiver);
-    //FIXME add command fields
+    addStringField("id", Prompt.animalKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    String id = stringField("id");
+
+    Animal animal = _receiver.getAnimal(id);
+
+    if (animal == null) {
+      throw new UnknownAnimalKeyException(id);
+    }
+
+    _display.addLine(animal.calculateSatisfaction());
+    _display.display();
   }
 }

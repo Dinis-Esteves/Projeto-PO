@@ -179,7 +179,7 @@ public class Hotel implements Serializable {
       throw new UnknownAnimalKeyExceptionCore(animalId);
     }
 
-    Habitat currentHabitat = animal.geHabitat();
+    Habitat currentHabitat = animal.getHabitat();
 
     finalHabitat.add(animal);
     currentHabitat.remove(animal);

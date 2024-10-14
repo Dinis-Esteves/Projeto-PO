@@ -37,6 +37,17 @@ public class Habitat extends HotelEntity {
         return _area;
     }
 
+    public int getInfluence(Animal animal) {
+        Species animalSpecies = animal.getSpecies();
+        if (_positive.contains(animalSpecies)) {
+            return 20;
+        } else if (_negative.contains(animalSpecies)) {
+            return -20;
+        } else {
+            return 0;
+        }
+    }
+
     public void setArea(int newArea) {
         _area = newArea;
     }
@@ -45,6 +56,25 @@ public class Habitat extends HotelEntity {
         return _animals.stream()
         .sorted(Comparator.comparing(Animal::getId, String.CASE_INSENSITIVE_ORDER))
         .collect(Collectors.toList());
+    }
+
+    public int[] getInfoAnimalSatisfaction(Animal animal) {
+        // response format: [0] equalSpecies | [1] differentSpecies | [2] area | [3] nºanimals | [4] influence
+        int[] response = new int[5];
+        Species animalSpecies = animal.getSpecies();
+        int count = 0;
+        for (Animal a : _animals) {
+            if (animalSpecies.equalSpecies(a.getSpecies()))
+                count++;
+        }
+        response[0] = count;
+        response[1] = _animals.size() - count;
+        response[2] = _area;
+        response[3] = _animals.size();
+        response[4] = getInfluence(animal);
+
+        return response;
+
     }
 
     @Override
