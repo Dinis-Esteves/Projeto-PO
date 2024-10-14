@@ -4,7 +4,7 @@ public class UnknownHabitatKeyExceptionCore extends Exception{
 
     private String _id;
 
-    private static final String ERROR_MESSAGE = "ID de especie inexistente: ";
+    private static final String ERROR_MESSAGE = "ID de habitat inexistente: ";
 
     public UnknownHabitatKeyExceptionCore(String id) {
         super(ERROR_MESSAGE + id);

@@ -1,6 +1,9 @@
 package hva.app.animal;
 
+import hva.core.Animal;
 import hva.core.Hotel;
+import hva.core.exception.UnknownAnimalKeyExceptionCore;
+import hva.core.exception.UnknownHabitatKeyExceptionCore;
 import hva.app.exception.UnknownAnimalKeyException;
 import hva.app.exception.UnknownHabitatKeyException;
 import pt.tecnico.uilib.menus.Command;
@@ -14,11 +17,21 @@ class DoTransferToHabitat extends Command<Hotel> {
 
   DoTransferToHabitat(Hotel hotel) {
     super(Label.TRANSFER_ANIMAL_TO_HABITAT, hotel);
-    //FIXME add command fields
+    addStringField("id", Prompt.animalKey());
+    addStringField("habitatId", hva.app.habitat.Prompt.habitatKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    String id = stringField("id");
+    String habitatId = stringField("habitatId");
+
+    try {
+      _receiver.moveAnimalTo(id, habitatId);
+    } catch (UnknownAnimalKeyExceptionCore e) {
+      throw new UnknownAnimalKeyException(e.getId());
+    } catch (UnknownHabitatKeyExceptionCore e) {
+      throw new UnknownAnimalKeyException(e.getId());
+    }
   }
 }

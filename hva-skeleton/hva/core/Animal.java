@@ -18,6 +18,14 @@ public class Animal extends HotelEntity{
         _vaccines = new LinkedList<VaccineApplication>();
     }
 
+    public Habitat geHabitat() {
+        return _habitat;
+    }
+
+    public void setHabitat(Habitat habitat) {
+        _habitat = habitat;
+    }
+
     @Override
     public String toString() {
         return "ANIMAL|" + super.getId() + "|" + super.getName()  + "|" 

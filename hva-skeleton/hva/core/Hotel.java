@@ -68,6 +68,10 @@ public class Hotel implements Serializable {
     return _habitats.get(id);
   }
 
+  public Animal getAnimal(String id) {
+    return _animals.get(id);
+  }
+
   public Collection<Vaccine> getVaccines() {
     return _vacinnes.values().stream()
     .sorted(Comparator.comparing(Vaccine::getId, String.CASE_INSENSITIVE_ORDER))
@@ -161,6 +165,25 @@ public class Hotel implements Serializable {
   public boolean isHotelEmpty() {
     return _animals.isEmpty() & _applications.isEmpty() & _employees.isEmpty() & _trees.isEmpty() & _species.isEmpty() &
     _habitats.isEmpty() & _vacinnes.isEmpty();
+  }
+
+  public void moveAnimalTo(String animalId, String habitatId) throws UnknownHabitatKeyExceptionCore, UnknownAnimalKeyExceptionCore{
+    Habitat finalHabitat = _habitats.get(habitatId);
+    Animal animal = _animals.get(animalId);
+    
+    if (finalHabitat == null) {
+      throw new UnknownHabitatKeyExceptionCore(habitatId);
+    }
+
+    if (animal == null) {
+      throw new UnknownAnimalKeyExceptionCore(animalId);
+    }
+
+    Habitat currentHabitat = animal.geHabitat();
+
+    finalHabitat.add(animal);
+    currentHabitat.remove(animal);
+    animal.setHabitat(finalHabitat);
   }
 
   @Override
