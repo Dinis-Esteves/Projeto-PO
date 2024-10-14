@@ -7,7 +7,7 @@ public enum Season {
     FALL,
     WINTER;
 
-    public Season next() {
+    Season next() {
         return values()[(this.ordinal() + 1) % values().length];
     }
     

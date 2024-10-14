@@ -16,7 +16,7 @@ public class Animal extends HotelEntity{
         _vaccines = new LinkedList<VaccineApplication>();
     }
 
-    public Habitat getHabitat() {
+    Habitat getHabitat() {
         return _habitat;
     }
 
@@ -26,11 +26,11 @@ public class Animal extends HotelEntity{
         return Math.round(20 + 3*info[0] - 2*info[1] + info[2]/info[3] + info[4]);
     }
 
-    public Species getSpecies() {
+    Species getSpecies() {
         return _specie;
     }
 
-    public void setHabitat(Habitat habitat) {
+    void setHabitat(Habitat habitat) {
         _habitat = habitat;
     }
 

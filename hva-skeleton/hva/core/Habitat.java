@@ -14,7 +14,7 @@ public class Habitat extends HotelEntity {
     private HashSet<Animal> _animals;
     private HashSet<Tree> _trees;
 
-    public Habitat(String id, String name, int area) {
+    Habitat(String id, String name, int area) {
         super(id, name);
         _area = area;
         _positive = new HashSet<Species>(10);
@@ -31,11 +31,11 @@ public class Habitat extends HotelEntity {
         _animals.add(animal);
     }
 
-    public int getArea(){
+    int getArea(){
         return _area;
     }
 
-    public int getInfluence(Animal animal) {
+    int getInfluence(Animal animal) {
         Species animalSpecies = animal.getSpecies();
         if (_positive.contains(animalSpecies)) {
             return 20;
@@ -46,17 +46,17 @@ public class Habitat extends HotelEntity {
         }
     }
 
-    public void setArea(int newArea) {
+    void setArea(int newArea) {
         _area = newArea;
     }
 
-    public Collection<Animal> getAnimals() {
+    Collection<Animal> getAnimals() {
         return _animals.stream()
         .sorted(Comparator.comparing(Animal::getId, String.CASE_INSENSITIVE_ORDER))
         .collect(Collectors.toList());
     }
 
-    public int[] getInfoAnimalSatisfaction(Animal animal) {
+    int[] getInfoAnimalSatisfaction(Animal animal) {
         // response format: [0] equalSpecies | [1] differentSpecies | [2] area | [3] nºanimals | [4] influence
         int[] response = new int[5];
         Species animalSpecies = animal.getSpecies();

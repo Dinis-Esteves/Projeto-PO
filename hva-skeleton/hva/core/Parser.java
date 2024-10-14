@@ -21,7 +21,7 @@ public class Parser {
     }
 
 
-    public void parseFile(String filename) throws IOException, UnrecognizedEntryException {
+    void parseFile(String filename) throws IOException, UnrecognizedEntryException {
         FileReader test = new FileReader(filename);
         try (BufferedReader reader = new BufferedReader(test)) {
         String line;
@@ -32,7 +32,7 @@ public class Parser {
   }
 
 
-    private void parseLine(String line) throws UnrecognizedEntryException {
+    void parseLine(String line) throws UnrecognizedEntryException {
         String[] components = line.split("\\|");
 
         switch(components[0]) {
