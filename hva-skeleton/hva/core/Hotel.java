@@ -186,6 +186,21 @@ public class Hotel implements Serializable {
     animal.setHabitat(finalHabitat);
   }
 
+  public void changeInfluence(String habitatId, String speciesId, int influence) throws UnknownHabitatKeyExceptionCore, SpeciesKeyNotFoundException {
+    Habitat habitat = _habitats.get(habitatId);
+    Species species = _species.get(speciesId);
+
+    if (habitat == null) {
+      throw new UnknownHabitatKeyExceptionCore(habitatId);
+    }
+
+    if (species == null) {
+      throw new SpeciesKeyNotFoundException(speciesId);
+    }
+
+    habitat.changeInfluence(species, influence);
+  }
+
   @Override
   public int hashCode() {
     return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +

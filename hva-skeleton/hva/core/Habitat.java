@@ -35,17 +35,36 @@ public class Habitat extends HotelEntity {
         return _area;
     }
 
-    int getInfluence(Animal animal) {
-        Species animalSpecies = animal.getSpecies();
-        if (_positive.contains(animalSpecies)) {
+    int getInfluence(Species species) {
+        if (_positive.contains(species)) {
             return 20;
-        } else if (_negative.contains(animalSpecies)) {
+        } else if (_negative.contains(species)) {
             return -20;
         } else {
             return 0;
         }
     }
 
+    void changeInfluence(Species species, int influence) {
+        int optionRemove = getInfluence(species);
+
+        optionRemove /= (optionRemove<0) ? -20 : 10;
+        
+    
+        Runnable[] removeActions = new Runnable[3];
+        removeActions[0] = () -> {};
+        removeActions[1] = () -> _negative.remove(species);
+        removeActions[2] = () -> _positive.remove(species);       
+
+        Runnable[] addActions = new Runnable[3];
+        addActions[0] = () -> _negative.add(species);
+        addActions[1] = () -> {};
+        addActions[2] = () -> _positive.add(species);
+
+        removeActions[optionRemove].run();
+        addActions[influence].run();
+    }
+    
     void setArea(int newArea) {
         _area = newArea;
     }
@@ -69,7 +88,7 @@ public class Habitat extends HotelEntity {
         response[1] = _animals.size() - count;
         response[2] = _area;
         response[3] = _animals.size();
-        response[4] = getInfluence(animal);
+        response[4] = getInfluence(animalSpecies);
 
         return response;
 
