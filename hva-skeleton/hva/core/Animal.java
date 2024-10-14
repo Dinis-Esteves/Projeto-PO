@@ -1,7 +1,5 @@
 package hva.core;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Animal extends HotelEntity{

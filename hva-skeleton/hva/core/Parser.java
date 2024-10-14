@@ -6,7 +6,6 @@ import java.io.FileReader;
 
 import hva.core.exception.DuplicateHabitatKeyExceptionCore;
 import hva.core.exception.DuplicateVaccineKeyExceptionCore;
-import hva.app.exception.DuplicateVaccineKeyException;
 import hva.core.exception.DuplicateAnimalKeyExceptionCore;
 import hva.core.exception.DuplicateEmployeeKeyExceptionCore;
 import hva.core.exception.SpeciesKeyNotFoundException;

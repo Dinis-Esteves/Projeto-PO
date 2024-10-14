@@ -1,7 +1,5 @@
 package hva.core;
 
-import java.io.Serializable;
-import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -1,8 +1,5 @@
 package hva.core;
 
-import java.io.Serializable;
-import java.io.Serial;
-
 abstract class Tree extends HotelEntity{
     
     private Season _season;
