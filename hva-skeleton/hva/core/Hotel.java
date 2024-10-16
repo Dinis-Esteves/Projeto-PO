@@ -201,6 +201,26 @@ public class Hotel implements Serializable {
     habitat.changeInfluence(species, influence);
   }
 
+  public void plantTree(String habitatId, String treeId, String treeName, int age, int cleaningEffort, int type) throws DuplicateTreeKeyExceptionCore, UnknownHabitatKeyExceptionCore {
+    if (_trees.containsKey(treeId)) {
+      throw new DuplicateTreeKeyExceptionCore(treeId);
+    }
+
+    if (!_habitats.containsKey(habitatId)) {
+      throw new UnknownHabitatKeyExceptionCore(habitatId);
+    }
+
+    
+
+    Tree tree = (type == 0) ? new EvergreenTree(_currentSeason, age, cleaningEffort, treeId, treeName) : 
+                              new DeciduousTree(_currentSeason, age, type, treeId, treeName);
+    Habitat habitat = _habitats.get(habitatId);
+
+    _trees.put(treeId, tree);
+    habitat.addTree(tree);
+
+  }
+
   @Override
   public int hashCode() {
     return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +
