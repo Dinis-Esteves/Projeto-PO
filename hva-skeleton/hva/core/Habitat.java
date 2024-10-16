@@ -100,9 +100,16 @@ public class Habitat extends HotelEntity {
         if (_trees.contains(tree)) {
             throw new DuplicateTreeKeyExceptionCore(tree.getId());
         }
-        
+
         _trees.add(tree);
     }
+    
+    public Collection<Tree> getTrees() {
+        return _trees.stream()
+        .sorted(Comparator.comparing(Tree::getId, String.CASE_INSENSITIVE_ORDER))
+        .collect(Collectors.toList());
+      }
+
     @Override
     public String toString() {
         return "HABITAT" + "|" + super.getId() + "|" + super.getName()  + "|" + _area + "|" + _trees.size();

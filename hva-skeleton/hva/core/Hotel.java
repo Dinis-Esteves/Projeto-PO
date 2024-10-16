@@ -64,7 +64,7 @@ public class Hotel implements Serializable {
     return _species.get(id);
   }
 
-  public Habitat geHabitat(String id)  {
+  public Habitat getHabitat(String id)  {
     return _habitats.get(id);
   }
 
@@ -210,8 +210,8 @@ public class Hotel implements Serializable {
       throw new DuplicateTreeKeyExceptionCore(treeId);
     }
 
-    Tree tree = (type == 0) ? new EvergreenTree(_currentSeason, age, cleaningEffort, treeId, treeName) : 
-                              new DeciduousTree(_currentSeason, age, type, treeId, treeName);
+    Tree tree = (type == 0) ? new EvergreenTree(_currentSeason.ordinal(), age, cleaningEffort, treeId, treeName) : 
+                              new DeciduousTree(_currentSeason.ordinal(), age, type, treeId, treeName);
 
     _trees.put(treeId, tree);
   }
@@ -227,8 +227,8 @@ public class Hotel implements Serializable {
 
     
 
-    Tree tree = (type == 0) ? new EvergreenTree(_currentSeason, age, cleaningEffort, treeId, treeName) : 
-                              new DeciduousTree(_currentSeason, age, type, treeId, treeName);
+    Tree tree = (type == 0) ? new EvergreenTree(_currentSeason.ordinal(), age, cleaningEffort, treeId, treeName) : 
+                              new DeciduousTree(_currentSeason.ordinal(), age, type, treeId, treeName);
     Habitat habitat = _habitats.get(habitatId);
 
     _trees.put(treeId, tree);

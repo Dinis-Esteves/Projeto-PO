@@ -92,7 +92,7 @@ public class Parser {
 
             if (components.length == 5) {
                 String[] listOfTree = components[4].split(",");
-                Habitat habitat = _hotel.geHabitat(id);
+                Habitat habitat = _hotel.getHabitat(id);
                 for (String treeKey : listOfTree) {
                     habitat.addTree(_hotel.getTree(treeKey));
                 }
