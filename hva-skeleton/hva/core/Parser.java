@@ -68,8 +68,20 @@ public class Parser {
     }
 
     private void parseTree(String[] components) throws UnrecognizedEntryException {
-        
+        try {
+            String treeId = components[1];
+            String treeName = components[2];
+            int age = Integer.parseInt(components[3]);
+            int cleaningEffort = Integer.parseInt(components[4]);
+            int type = (components[5].equalsIgnoreCase("CADUCA")) ? 0 : 1;
+            
+            _hotel.registerTree(treeId, treeName, age, cleaningEffort, type);
+
+        } catch (Exception e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e);
+        }
     }
+
     private void parseHabitat(String[] components) throws UnrecognizedEntryException {
         try {
             String id = components[1];
@@ -80,11 +92,12 @@ public class Parser {
 
             if (components.length == 5) {
                 String[] listOfTree = components[4].split(",");
-                for (String treeKey : listOfTree)
-                    break;
-                // adicionar a árvore com id treeKey ao habitat referenciado por hab
+                Habitat habitat = _hotel.geHabitat(id);
+                for (String treeKey : listOfTree) {
+                    habitat.addTree(_hotel.getTree(treeKey));
+                }
             }
-        } catch (DuplicateHabitatKeyExceptionCore e) {
+        } catch (Exception e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e);
         }
 

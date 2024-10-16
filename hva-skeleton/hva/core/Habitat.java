@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
+import hva.core.exception.DuplicateTreeKeyExceptionCore;
+
 public class Habitat extends HotelEntity {
 
     
@@ -94,7 +96,11 @@ public class Habitat extends HotelEntity {
 
     }
 
-    void addTree(Tree tree) {
+    void addTree(Tree tree) throws DuplicateTreeKeyExceptionCore {
+        if (_trees.contains(tree)) {
+            throw new DuplicateTreeKeyExceptionCore(tree.getId());
+        }
+        
         _trees.add(tree);
     }
     @Override
