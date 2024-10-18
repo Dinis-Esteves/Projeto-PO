@@ -10,13 +10,19 @@ public abstract class Tree extends HotelEntity{
         super(id, name);
         _seasonOrdinal = season;
         _age = age;
-        difficultyCleaning = _difficultyCleaning;
+        _difficultyCleaning = difficultyCleaning;
     }
 
     abstract int cleaningEffort();
 
     public int getSeason() {
         return _seasonOrdinal;
+    }
+
+    void update() {
+        if (Season.getFixedSeason().ordinal() == _seasonOrdinal) {
+            _age++;
+        }
     }
 
     @Override

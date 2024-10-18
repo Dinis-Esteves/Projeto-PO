@@ -96,12 +96,13 @@ public class Habitat extends HotelEntity {
 
     }
 
-    void addTree(Tree tree) throws DuplicateTreeKeyExceptionCore {
+    Tree addTree(Tree tree) throws DuplicateTreeKeyExceptionCore {
         if (_trees.contains(tree)) {
             throw new DuplicateTreeKeyExceptionCore(tree.getId());
         }
 
         _trees.add(tree);
+        return tree;
     }
     
     public Collection<Tree> getTrees() {

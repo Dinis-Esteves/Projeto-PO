@@ -35,7 +35,8 @@ class DoAddTreeToHabitat extends Command<Hotel> {
     int type = (t.equalsIgnoreCase("CADUCA")) ? 0 : 1;
 
     try {
-      _receiver.plantTree(habitatId, treeId, treeName, age, cleanningEffort, type);
+      _display.addLine(_receiver.plantTree(habitatId, treeId, treeName, age, cleanningEffort, type).toString());
+      _display.display();
     } catch (UnknownHabitatKeyExceptionCore e) {
       throw new UnknownHabitatKeyException(e.getId());
     } catch (DuplicateTreeKeyExceptionCore e) {

@@ -205,35 +205,33 @@ public class Hotel implements Serializable {
     habitat.changeInfluence(species, influence);
   }
 
-  public void registerTree(String treeId, String treeName, int age, int cleaningEffort, int type) throws DuplicateTreeKeyExceptionCore {
+  public Tree registerTree(String treeId, String treeName, int age, int cleaningEffort, int type) throws DuplicateTreeKeyExceptionCore {
     if (_trees.containsKey(treeId)) {
       throw new DuplicateTreeKeyExceptionCore(treeId);
     }
 
-    Tree tree = (type == 0) ? new EvergreenTree(_currentSeason.ordinal(), age, cleaningEffort, treeId, treeName) : 
-                              new DeciduousTree(_currentSeason.ordinal(), age, type, treeId, treeName);
+    Tree tree = (type == 0) ? new DeciduousTree(_currentSeason.ordinal(), age, cleaningEffort, treeId, treeName) : 
+                              new EvergreenTree(_currentSeason.ordinal(), age, cleaningEffort, treeId, treeName);
+                              
 
     _trees.put(treeId, tree);
+    return tree;
   }
 
-  public void plantTree(String habitatId, String treeId, String treeName, int age, int cleaningEffort, int type) throws DuplicateTreeKeyExceptionCore, UnknownHabitatKeyExceptionCore {
-    if (_trees.containsKey(treeId)) {
-      throw new DuplicateTreeKeyExceptionCore(treeId);
-    }
-
+  public Tree plantTree(String habitatId, String treeId, String treeName, int age, int cleaningEffort, int type) throws DuplicateTreeKeyExceptionCore, UnknownHabitatKeyExceptionCore {
     if (!_habitats.containsKey(habitatId)) {
       throw new UnknownHabitatKeyExceptionCore(habitatId);
     }
-
     
-
-    Tree tree = (type == 0) ? new EvergreenTree(_currentSeason.ordinal(), age, cleaningEffort, treeId, treeName) : 
-                              new DeciduousTree(_currentSeason.ordinal(), age, type, treeId, treeName);
     Habitat habitat = _habitats.get(habitatId);
 
-    _trees.put(treeId, tree);
-    habitat.addTree(tree);
-
+    return habitat.addTree(registerTree(treeId, treeName, age, cleaningEffort, type));
+  }
+  
+  public void notifyTrees() {
+    for (Tree tree : _trees.values()) {
+      tree.update();
+    }
   }
 
   @Override

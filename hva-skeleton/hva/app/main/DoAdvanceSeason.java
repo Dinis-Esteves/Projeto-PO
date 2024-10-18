@@ -20,6 +20,7 @@ class DoAdvanceSeason extends Command<HotelManager> {
   protected final void execute() {
     Hotel hotel = _receiver.getHotel();
     _display.addLine(hotel.nextSeason());
+    hotel.notifyTrees();
     _display.display();
     //FIXME implement command
     
