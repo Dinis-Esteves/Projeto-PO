@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 
-import hva.core.exception.DuplicateHabitatKeyExceptionCore;
 import hva.core.exception.DuplicateVaccineKeyExceptionCore;
 import hva.core.exception.DuplicateAnimalKeyExceptionCore;
 import hva.core.exception.DuplicateEmployeeKeyExceptionCore;

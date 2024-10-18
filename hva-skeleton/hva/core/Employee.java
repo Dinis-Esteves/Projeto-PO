@@ -14,7 +14,9 @@ public abstract class Employee extends HotelEntity{
     abstract int computeSatisfaction();
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return this.getId() + this.getName();
+    }
 
     abstract void addResponsabilitie(String id);
 }

@@ -234,6 +234,31 @@ public class Hotel implements Serializable {
     }
   }
 
+  public void vaccinateAnimal(String vaccineId, String vetId, String animalId) throws UnknownVaccineKeyExceptionCore, UnknownAnimalKeyExceptionCore, UnknownVeterinarianKeyExceptionCore, VeterinarianNotAuthorizedExceptionCore {
+    if (!_vacinnes.containsKey(vaccineId)) {
+      throw new UnknownVaccineKeyExceptionCore(vaccineId);
+    }
+
+    if (!_animals.containsKey(animalId)) {
+      throw new UnknownAnimalKeyExceptionCore(animalId);
+    }
+
+    if (!_employees.containsKey(vetId) | !(_employees.get(vetId) instanceof Veterinarian)) {
+      throw new UnknownVeterinarianKeyExceptionCore(vetId);
+    }
+
+    Animal animal = _animals.get(animalId);
+    Vaccine vaccine = _vacinnes.get(vaccineId);
+    Veterinarian vet = (Veterinarian) _employees.get(vetId);
+
+    if (vet.hasPermision(animal.getSpecies())) {
+      throw new VeterinarianNotAuthorizedExceptionCore();
+    }
+
+    
+
+  }
+
   @Override
   public int hashCode() {
     return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +
