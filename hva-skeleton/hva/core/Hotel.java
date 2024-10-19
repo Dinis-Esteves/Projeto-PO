@@ -259,6 +259,27 @@ public class Hotel implements Serializable {
 
   }
 
+  public void addResponsibility(String employeeId, String responsibilityId) throws UnknownEmployeeKeyExceptionCore, UnknownResponsibilityKeyExceptionCore{
+    if (!_employees.containsKey(employeeId) | (!_habitats.containsKey(responsibilityId) & !_species.containsKey(responsibilityId))) {
+      throw new UnknownEmployeeKeyExceptionCore(employeeId);
+    } 
+
+    Employee employee = _employees.get(employeeId);
+    Habitat habitat = _habitats.get(responsibilityId);
+    Species species = _species.get(responsibilityId);
+
+    try {
+      employee.addResponsibility(habitat);
+    } catch (Exception e) {
+      try {
+        employee.addResponsibility(species);
+      } catch (Exception d) {
+        throw new UnknownResponsibilityKeyExceptionCore(responsibilityId);
+      }
+    }
+
+  }
+
   @Override
   public int hashCode() {
     return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +

@@ -6,21 +6,16 @@ import java.util.stream.Collectors;
 
 public class Veterinarian extends Employee{
 
-    private ArrayList<Species> _responsabilities;
+    private ArrayList<Species> _responsibilities;
     private LinkedList<VaccineApplication> _vaccines;
 
     protected Veterinarian(String id, String name) {
         super(id, name);
-        _responsabilities = new ArrayList<Species>();
+        _responsibilities = new ArrayList<Species>();
     }
    
     boolean hasPermision(Species specie) {
-        return _responsabilities.contains(specie);
-    }
-
-    @Override
-    void addResponsabilitie(String id) {
-        // precisa ser implementado
+        return _responsibilities.contains(specie);
     }
 
     @Override
@@ -30,10 +25,20 @@ public class Veterinarian extends Employee{
     }
 
     @Override
+    public void addResponsibility(Object object) throws ClassCastException, NullPointerException{
+        if (object == null) {
+            throw new NullPointerException();
+        }
+        Species species = (Species) object;
+        if (!_responsibilities.contains(object))
+            _responsibilities.add(species);
+    }
+
+    @Override
     public String toString() {
         String standart = "VET|" + super.toString();
-        if (_responsabilities.size() != 0)
-            return standart + "|" + _responsabilities.stream().map(Species::getId).collect(Collectors.joining(","));
+        if (_responsibilities.size() != 0)
+            return standart + "|" + _responsibilities.stream().map(Species::getId).collect(Collectors.joining(","));
         return standart;
     }
 

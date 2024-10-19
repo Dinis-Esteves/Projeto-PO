@@ -1,9 +1,6 @@
 package hva.core;
 
-import java.io.Serial;
-import java.io.Serializable;
-
-public abstract class Employee extends HotelEntity{
+public abstract class Employee extends HotelEntity implements Responsibility{
 
     private Hotel _hotel;
 
@@ -15,8 +12,8 @@ public abstract class Employee extends HotelEntity{
 
     @Override
     public String toString() {
-        return this.getId() + this.getName();
+        return this.getId() + "|" + this.getName();
     }
 
-    abstract void addResponsabilitie(String id);
+    public abstract void addResponsibility(Object object);
 }

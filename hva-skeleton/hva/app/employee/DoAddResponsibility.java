@@ -15,11 +15,19 @@ class DoAddResponsibility extends Command<Hotel> {
 
   DoAddResponsibility(Hotel receiver) {
     super(Label.ADD_RESPONSABILITY, receiver);
-    //FIXME add command fields
+    addStringField("employeeId", Prompt.employeeKey());
+    addStringField("responsibilityId", Prompt.responsibilityKey());
   }
   
   @Override
   protected void execute() throws CommandException {
-    //FIXME implement command
+    String employeeId = stringField("employeeId");
+    String responsibilityId = stringField("responsibilityId");
+
+    try {
+      _receiver.addResponsibility(employeeId, responsibilityId);
+    } catch (Exception e) {
+      throw new NoResponsibilityException(employeeId, responsibilityId);
+    }
   }
 }
