@@ -105,10 +105,18 @@ public class Parser {
         try {
             String id = components[1];
             String name = components[2];
+            String[] listOfReponsibilities = {};
 
             _hotel.registerEmployee(id, name, EmployeeType);
 
-        } catch (DuplicateEmployeeKeyExceptionCore e) {
+            if (components.length == 4) {
+                listOfReponsibilities = components[3].split(",");
+                for (String responsibily : listOfReponsibilities) {
+                    _hotel.addResponsibility(id, responsibily);
+                }
+            }
+
+        } catch (Exception e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e);
         }
     }

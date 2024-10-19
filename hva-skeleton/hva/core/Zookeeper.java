@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class Zookeeper extends Employee{
@@ -16,7 +17,11 @@ public class Zookeeper extends Employee{
     public String toString() {
         String standart = "TRT|" + super.toString();
         if (_responsibilities.size() != 0)
-            return standart + "|" + _responsibilities.stream().map(Habitat::getId).collect(Collectors.joining(","));
+            return standart + "|" + _responsibilities.stream()
+            .sorted(Comparator.comparing(Habitat::getId, String.CASE_INSENSITIVE_ORDER))
+            .map(Habitat::getId)
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
         return standart;
     }
 

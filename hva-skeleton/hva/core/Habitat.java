@@ -82,12 +82,12 @@ public class Habitat extends HotelEntity {
         int[] response = new int[5];
         Species animalSpecies = animal.getSpecies();
         int count = 0;
-        for (Animal a : _animals) {
-            if (animalSpecies.equalSpecies(a.getSpecies()))
+        for (Animal a : _animals) { 
+            if (animalSpecies.equalSpecies(a.getSpecies()) & !(a.getId().equalsIgnoreCase(animal.getId())))
                 count++;
         }
         response[0] = count;
-        response[1] = _animals.size() - count;
+        response[1] = _animals.size() - count - 1;
         response[2] = _area;
         response[3] = _animals.size();
         response[4] = getInfluence(animalSpecies);

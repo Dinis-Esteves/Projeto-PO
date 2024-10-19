@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import hva.core.Habitat;
 import hva.core.Hotel;
+import hva.core.Tree;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -27,6 +28,13 @@ class DoShowAllHabitats extends Command<Hotel> {
     while (habitats.hasNext()) {
       Habitat currentHabitat = habitats.next();
       _display.addLine(currentHabitat.toString());
+
+      Iterator<Tree> trees = currentHabitat.getTrees().iterator();
+
+      while (trees.hasNext()) {
+        Tree tree = trees.next();
+        _display.addLine(tree.toString());
+      }
     }
     _display.display();
   }

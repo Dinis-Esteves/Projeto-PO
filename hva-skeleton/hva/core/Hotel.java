@@ -168,7 +168,7 @@ public class Hotel implements Serializable {
 
   public boolean isHotelEmpty() {
     return _animals.isEmpty() & _applications.isEmpty() & _employees.isEmpty() & _trees.isEmpty() & _species.isEmpty() &
-    _habitats.isEmpty() & _vacinnes.isEmpty();
+    _habitats.isEmpty() & _vacinnes.isEmpty() & Season.getFixedSeason().ordinal() == 0;
   }
 
   public void moveAnimalTo(String animalId, String habitatId) throws UnknownHabitatKeyExceptionCore, UnknownAnimalKeyExceptionCore{
@@ -283,7 +283,7 @@ public class Hotel implements Serializable {
   @Override
   public int hashCode() {
     return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +
-    _currentSeason.hashCode() + _species.hashCode() + _trees.hashCode();
+    _currentSeason.hashCode() + _species.hashCode() + _trees.hashCode() + Season.getFixedSeason().ordinal();
   }
   /**
    * Read text input file and create corresponding domain entities.

@@ -31,7 +31,7 @@ class DoTransferToHabitat extends Command<Hotel> {
     } catch (UnknownAnimalKeyExceptionCore e) {
       throw new UnknownAnimalKeyException(e.getId());
     } catch (UnknownHabitatKeyExceptionCore e) {
-      throw new UnknownAnimalKeyException(e.getId());
+      throw new UnknownHabitatKeyException(e.getId());
     }
   }
 }
