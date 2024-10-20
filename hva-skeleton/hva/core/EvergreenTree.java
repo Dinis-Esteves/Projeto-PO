@@ -7,8 +7,9 @@ public class EvergreenTree extends Tree{
     }
 
     int cleaningEffort() {
-        // needs to be implemented
-        return 0;
+        int seasonEffort[] = {1, 1, 1, 2};
+
+        return (int) Math.round(this.getCleaningEffort() * seasonEffort[Season.getFixedSeason().ordinal()] * Math.log(this.getAge()));
     }
 
     @Override

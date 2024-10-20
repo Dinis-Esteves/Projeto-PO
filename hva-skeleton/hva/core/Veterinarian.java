@@ -21,9 +21,14 @@ public class Veterinarian extends Employee{
     }
 
     @Override
-    int computeSatisfaction() {
-        // precisa ser implementado
-        return 0;
+    public int computeSatisfaction() {
+        int resp = 0;
+        for (Species s : _responsibilities) {
+            if (s.getAnimalSize() != 0) {
+                resp += s.getVetCount() / s.getAnimalSize();
+            }   
+        }
+        return 20 - resp;
     }
 
     @Override
@@ -34,6 +39,7 @@ public class Veterinarian extends Employee{
         Species species = (Species) object;
         if (!_responsibilities.contains(species))
             _responsibilities.add(species);
+            species.addVetCount();
     }
 
     @Override
@@ -45,6 +51,7 @@ public class Veterinarian extends Employee{
         if (!_responsibilities.contains(species))
             throw new UnknownResponsibilityKeyExceptionCore("");
         _responsibilities.remove(species);
+        species.decreaseVetCount();
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.Set;
 public class Species extends HotelEntity {
 
     private Set<Animal> _animals;
+    private int _vets = 0;
     
     Species(String id, String name) {
         super(id, name);
@@ -16,6 +17,22 @@ public class Species extends HotelEntity {
 
     void addAnimal(Animal animal) {
         _animals.add(animal);
+    }
+
+    int getAnimalSize() {
+        return _animals.size();
+    }
+
+    int getVetCount() {
+        return _vets;
+    }
+
+    void addVetCount() {
+        _vets++;
+    }
+
+    void decreaseVetCount() {
+        _vets--;
     }
 
     public boolean equalSpecies(Species species) {

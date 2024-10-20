@@ -25,6 +25,14 @@ public abstract class Tree extends HotelEntity{
         }
     }
 
+    int getCleaningEffort() {
+        return _difficultyCleaning;
+    }
+
+    int getAge() {
+        return _age;
+    }
+
     @Override
     public String toString() {
         return "ÁRVORE|" + super.getId() + "|" + super.getName() + "|" + _age + "|" + _difficultyCleaning + "|";

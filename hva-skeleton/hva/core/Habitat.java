@@ -9,12 +9,12 @@ import hva.core.exception.DuplicateTreeKeyExceptionCore;
 
 public class Habitat extends HotelEntity {
 
-    
     private int _area;
     private HashSet<Species> _positive;
     private HashSet<Species> _negative;
     private HashSet<Animal> _animals;
     private HashSet<Tree> _trees;
+    private int _zookeepers = 0;
 
     Habitat(String id, String name, int area) {
         super(id, name);
@@ -23,6 +23,18 @@ public class Habitat extends HotelEntity {
         _negative = new HashSet<Species>(10);
         _animals = new HashSet<Animal>(10);
         _trees = new HashSet<Tree>(10);
+    }
+
+    void addKeeperCount() {
+        _zookeepers++;
+    }
+
+    void decreseKeeperCount() {
+        _zookeepers--;
+    }
+
+    int getKeeperCount() {
+        return _zookeepers;
     }
 
     void remove(Animal animal) {
@@ -114,5 +126,15 @@ public class Habitat extends HotelEntity {
     @Override
     public String toString() {
         return "HABITAT" + "|" + super.getId() + "|" + super.getName()  + "|" + _area + "|" + _trees.size();
+    }
+
+    int calculateWork() {
+        int treeWork = 0;
+        for (Tree t : _trees) {
+            treeWork += t.getCleaningEffort();
+        }
+
+        
+        return _area + 3*_trees.size() + treeWork;
     }
 }

@@ -36,6 +36,7 @@ public class Zookeeper extends Employee{
         Habitat habitat = (Habitat) object;
         if (!_responsibilities.contains(object))
             _responsibilities.add(habitat);
+            habitat.addKeeperCount();
     }
 
     @Override
@@ -47,11 +48,15 @@ public class Zookeeper extends Employee{
         if (!_responsibilities.contains(habitat))
             throw new UnknownResponsibilityKeyExceptionCore("");
         _responsibilities.remove(habitat);
+        habitat.decreseKeeperCount();
     }
 
     @Override
-    int computeSatisfaction() {
-        // precisa ser implementado
-        return 0;
+    public int computeSatisfaction() {
+        int resp = 0;
+        for (Habitat h : _responsibilities) {
+            resp += h.calculateWork()/h.getKeeperCount();
+        }
+        return resp;
     }
 }

@@ -7,8 +7,9 @@ public class DeciduousTree extends Tree{
     }
 
     int cleaningEffort() {
-        // needs to be implemented
-        return 0;
+        int seasonEffort[] = {1, 2, 5, 0};
+
+        return (int) Math.round(this.getCleaningEffort() * seasonEffort[Season.getFixedSeason().ordinal()] * Math.log(this.getAge()));
     }
 
     @Override

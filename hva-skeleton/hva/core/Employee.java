@@ -2,7 +2,7 @@ package hva.core;
 
 import hva.core.exception.UnknownResponsibilityKeyExceptionCore;
 
-public abstract class Employee extends HotelEntity implements Responsibility{
+public abstract class Employee extends HotelEntity {
 
     private Hotel _hotel;
 
@@ -10,7 +10,7 @@ public abstract class Employee extends HotelEntity implements Responsibility{
         super(id, name);
     }
 
-    abstract int computeSatisfaction();
+    public abstract int computeSatisfaction();
 
     @Override
     public String toString() {
@@ -20,4 +20,5 @@ public abstract class Employee extends HotelEntity implements Responsibility{
     public abstract void addResponsibility(Object object) throws UnknownResponsibilityKeyExceptionCore;
 
     public abstract void removeResponsibility(Object object) throws UnknownResponsibilityKeyExceptionCore;
+
 }
