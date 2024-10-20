@@ -135,6 +135,6 @@ public class Habitat extends HotelEntity {
         }
 
         
-        return _area + 3*_trees.size() + treeWork;
+        return _area + 3*(_trees.size() + _animals.size()) + treeWork;
     }
 }

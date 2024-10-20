@@ -37,18 +37,18 @@ public class Hotel implements Serializable {
 
   public Animal registerAnimal(String id, String name, String speciesId, String habitatId) throws DuplicateAnimalKeyExceptionCore, SpeciesKeyNotFoundException, UnknownHabitatKeyExceptionCore {
 
-    if (_animals.containsKey(id))
+    if (_animals.containsKey(id.toLowerCase()))
       throw new DuplicateAnimalKeyExceptionCore(id);
-    if (!_habitats.containsKey(habitatId))
+    if (!_habitats.containsKey(habitatId.toLowerCase()))
       throw new UnknownHabitatKeyExceptionCore(habitatId);
-    if (!_species.containsKey(speciesId))
+    if (!_species.containsKey(speciesId.toLowerCase()))
       throw new SpeciesKeyNotFoundException(speciesId);
 
 
-    Species species = _species.get(speciesId);
-    Habitat habitat = _habitats.get(habitatId);
-    Animal animal = new Animal(id, name, species, _habitats.get(habitatId));
-    _animals.put(id, animal);
+    Species species = _species.get(speciesId.toLowerCase());
+    Habitat habitat = _habitats.get(habitatId.toLowerCase());
+    Animal animal = new Animal(id, name, species, _habitats.get(habitatId.toLowerCase()));
+    _animals.put(id.toLowerCase(), animal);
     species.addAnimal(animal);
     habitat.add(animal);
     return animal;
@@ -56,28 +56,28 @@ public class Hotel implements Serializable {
 
   public Species registSpecies(String id, String name) {
     Species species = new Species(id, name);
-    _species.put(id, species);
+    _species.put(id.toLowerCase(), species);
     return species;
   }
 
   public Species getSpecies(String id)  {
-    return _species.get(id);
+    return _species.get(id.toLowerCase());
   }
 
   public Habitat getHabitat(String id)  {
-    return _habitats.get(id);
+    return _habitats.get(id.toLowerCase());
   }
 
   public Animal getAnimal(String id) {
-    return _animals.get(id);
+    return _animals.get(id.toLowerCase());
   }
 
   public Tree getTree(String id) {
-    return _trees.get(id);
+    return _trees.get(id.toLowerCase());
   }
 
   public Employee getEmployee(String id) {
-    return _employees.get(id);
+    return _employees.get(id.toLowerCase());
   }
 
   public Collection<Vaccine> getVaccines() {
@@ -106,25 +106,25 @@ public class Hotel implements Serializable {
   }
 
   public Collection<Animal> getAnimalsFromHabitat(String id) throws UnknownHabitatKeyExceptionCore{
-    if (!_habitats.containsKey(id)) {
+    if (!_habitats.containsKey(id.toLowerCase())) {
       throw new UnknownHabitatKeyExceptionCore(id);
     }
 
-    return _habitats.get(id).getAnimals();
+    return _habitats.get(id.toLowerCase()).getAnimals();
   }
 
   public Habitat registerHabitat(String id, String name, int area) throws DuplicateHabitatKeyExceptionCore {
-    if (_habitats.containsKey(id))
+    if (_habitats.containsKey(id.toLowerCase()))
       throw new DuplicateHabitatKeyExceptionCore(id);
 
     Habitat habitat = new Habitat(id, name, area);
-    _habitats.put(id, habitat);
+    _habitats.put(id.toLowerCase(), habitat);
     return habitat;
   }
 
   public Employee registerEmployee(String id, String name, String type) throws DuplicateEmployeeKeyExceptionCore, UnrecognizedEntryException{
 
-    if (_employees.containsKey(id)) {
+    if (_employees.containsKey(id.toLowerCase())) {
       throw new DuplicateEmployeeKeyExceptionCore(id);
     } 
     if (!type.equalsIgnoreCase("VET") & !type.equalsIgnoreCase("TRT")) {
@@ -132,42 +132,42 @@ public class Hotel implements Serializable {
     }
     if (type.equalsIgnoreCase("VET")) {
       Veterinarian vet = new Veterinarian(id, name);
-      _employees.put(id, vet);
+      _employees.put(id.toLowerCase(), vet);
       return vet;
     } else {
       Zookeeper keeper = new Zookeeper(id, name);
-      _employees.put(id, keeper);
+      _employees.put(id.toLowerCase(), keeper);
       return keeper;
     }
   }
  
   public Vaccine registerVaccine(String id, String name, String[] species) throws DuplicateVaccineKeyExceptionCore, SpeciesKeyNotFoundException {
-    if (_vacinnes.containsKey(id)) {
+    if (_vacinnes.containsKey(id.toLowerCase())) {
       throw new DuplicateVaccineKeyExceptionCore(id);
     }
 
     if (species.length == 0) {
       Vaccine vaccine = new Vaccine(id, name);
-      _vacinnes.put(id, vaccine);
+      _vacinnes.put(id.toLowerCase(), vaccine);
       return vaccine;
     }
 
     for (String speciesId : species) {
-      if (!_species.containsKey(speciesId))
+      if (!_species.containsKey(speciesId.toLowerCase()))
         throw new SpeciesKeyNotFoundException(speciesId);
     }
 
     Vaccine vaccine = new Vaccine(id, name, species);
-    _vacinnes.put(id, vaccine);
+    _vacinnes.put(id.toLowerCase(), vaccine);
     return vaccine;
   }
 
   public void changeHabitatArea(String id, int area) throws UnknownHabitatKeyExceptionCore{
-    if (!_habitats.containsKey(id)) {
+    if (!_habitats.containsKey(id.toLowerCase())) {
       throw new UnknownHabitatKeyExceptionCore(id);
     }
 
-    _habitats.get(id).setArea(area);
+    _habitats.get(id.toLowerCase()).setArea(area);
   }
 
   public boolean isHotelEmpty() {
@@ -176,8 +176,8 @@ public class Hotel implements Serializable {
   }
 
   public void moveAnimalTo(String animalId, String habitatId) throws UnknownHabitatKeyExceptionCore, UnknownAnimalKeyExceptionCore{
-    Habitat finalHabitat = _habitats.get(habitatId);
-    Animal animal = _animals.get(animalId);
+    Habitat finalHabitat = _habitats.get(habitatId.toLowerCase());
+    Animal animal = _animals.get(animalId.toLowerCase());
     
     if (finalHabitat == null) {
       throw new UnknownHabitatKeyExceptionCore(habitatId);
@@ -195,8 +195,8 @@ public class Hotel implements Serializable {
   }
 
   public void changeInfluence(String habitatId, String speciesId, int influence) throws UnknownHabitatKeyExceptionCore, SpeciesKeyNotFoundException {
-    Habitat habitat = _habitats.get(habitatId);
-    Species species = _species.get(speciesId);
+    Habitat habitat = _habitats.get(habitatId.toLowerCase());
+    Species species = _species.get(speciesId.toLowerCase());
 
     if (habitat == null) {
       throw new UnknownHabitatKeyExceptionCore(habitatId);
@@ -210,7 +210,7 @@ public class Hotel implements Serializable {
   }
 
   public Tree registerTree(String treeId, String treeName, int age, int cleaningEffort, int type) throws DuplicateTreeKeyExceptionCore {
-    if (_trees.containsKey(treeId)) {
+    if (_trees.containsKey(treeId.toLowerCase())) {
       throw new DuplicateTreeKeyExceptionCore(treeId);
     }
 
@@ -218,7 +218,7 @@ public class Hotel implements Serializable {
                               new EvergreenTree(_currentSeason.ordinal(), age, cleaningEffort, treeId, treeName);
                               
 
-    _trees.put(treeId, tree);
+    _trees.put(treeId.toLowerCase(), tree);
     return tree;
   }
 
@@ -227,7 +227,7 @@ public class Hotel implements Serializable {
       throw new UnknownHabitatKeyExceptionCore(habitatId);
     }
     
-    Habitat habitat = _habitats.get(habitatId);
+    Habitat habitat = _habitats.get(habitatId.toLowerCase());
 
     return habitat.addTree(registerTree(treeId, treeName, age, cleaningEffort, type));
   }
@@ -239,21 +239,21 @@ public class Hotel implements Serializable {
   }
 
   public void vaccinateAnimal(String vaccineId, String vetId, String animalId) throws UnknownVaccineKeyExceptionCore, UnknownAnimalKeyExceptionCore, UnknownVeterinarianKeyExceptionCore, VeterinarianNotAuthorizedExceptionCore {
-    if (!_vacinnes.containsKey(vaccineId)) {
+    if (!_vacinnes.containsKey(vaccineId.toLowerCase())) {
       throw new UnknownVaccineKeyExceptionCore(vaccineId);
     }
 
-    if (!_animals.containsKey(animalId)) {
+    if (!_animals.containsKey(animalId.toLowerCase())) {
       throw new UnknownAnimalKeyExceptionCore(animalId);
     }
 
-    if (!_employees.containsKey(vetId) | !(_employees.get(vetId) instanceof Veterinarian)) {
+    if (!_employees.containsKey(vetId.toLowerCase()) | !(_employees.get(vetId.toLowerCase()) instanceof Veterinarian)) {
       throw new UnknownVeterinarianKeyExceptionCore(vetId);
     }
 
-    Animal animal = _animals.get(animalId);
-    Vaccine vaccine = _vacinnes.get(vaccineId);
-    Veterinarian vet = (Veterinarian) _employees.get(vetId);
+    Animal animal = _animals.get(animalId.toLowerCase());
+    Vaccine vaccine = _vacinnes.get(vaccineId.toLowerCase());
+    Veterinarian vet = (Veterinarian) _employees.get(vetId.toLowerCase());
 
     if (vet.hasPermision(animal.getSpecies())) {
       throw new VeterinarianNotAuthorizedExceptionCore();
@@ -264,17 +264,17 @@ public class Hotel implements Serializable {
   }
 
   public void addResponsibility(String employeeId, String responsibilityId) throws UnknownEmployeeKeyExceptionCore, UnknownResponsibilityKeyExceptionCore{
-    if (!_employees.containsKey(employeeId)) {
+    if (!_employees.containsKey(employeeId.toLowerCase())) {
       throw new UnknownEmployeeKeyExceptionCore(employeeId);
     }
 
-    if (!_habitats.containsKey(responsibilityId) & !_species.containsKey(responsibilityId)) {
+    if (!_habitats.containsKey(responsibilityId.toLowerCase()) & !_species.containsKey(responsibilityId.toLowerCase())) {
       throw new UnknownResponsibilityKeyExceptionCore(responsibilityId);
     }
 
-    Employee employee = _employees.get(employeeId);
-    Habitat habitat = _habitats.get(responsibilityId);
-    Species species = _species.get(responsibilityId);
+    Employee employee = _employees.get(employeeId.toLowerCase());
+    Habitat habitat = _habitats.get(responsibilityId.toLowerCase());
+    Species species = _species.get(responsibilityId.toLowerCase());
 
     try {
       employee.addResponsibility(habitat);
@@ -289,17 +289,17 @@ public class Hotel implements Serializable {
   }
 
   public void removeResponsibility(String employeeId, String responsibilityId) throws UnknownEmployeeKeyExceptionCore, UnknownResponsibilityKeyExceptionCore {
-    if (!_employees.containsKey(employeeId)) {
+    if (!_employees.containsKey(employeeId.toLowerCase())) {
       throw new UnknownEmployeeKeyExceptionCore(employeeId);
     }
 
-    if (!_habitats.containsKey(responsibilityId) & !_species.containsKey(responsibilityId)) {
+    if (!_habitats.containsKey(responsibilityId.toLowerCase()) & !_species.containsKey(responsibilityId.toLowerCase())) {
       throw new UnknownResponsibilityKeyExceptionCore(responsibilityId);
     }
 
-    Employee employee = _employees.get(employeeId);
-    Habitat habitat = _habitats.get(responsibilityId);
-    Species species = _species.get(responsibilityId);
+    Employee employee = _employees.get(employeeId.toLowerCase());
+    Habitat habitat = _habitats.get(responsibilityId.toLowerCase());
+    Species species = _species.get(responsibilityId.toLowerCase());
 
     try {
       employee.removeResponsibility(habitat);
@@ -312,6 +312,20 @@ public class Hotel implements Serializable {
     }
   }
 
+  public int globalSatisfaction() {
+    int globalSatisfaction = 0;
+
+    for (Employee e : _employees.values()) {
+      globalSatisfaction += e.computeSatisfaction();
+    }
+
+    for (Animal a : _animals.values()) {
+      globalSatisfaction += a.calculateSatisfaction();
+    }
+
+    return globalSatisfaction;
+  }
+  
   @Override
   public int hashCode() {
     return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +

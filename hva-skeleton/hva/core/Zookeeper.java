@@ -57,6 +57,6 @@ public class Zookeeper extends Employee{
         for (Habitat h : _responsibilities) {
             resp += h.calculateWork()/h.getKeeperCount();
         }
-        return resp;
+        return 300 - resp;
     }
 }

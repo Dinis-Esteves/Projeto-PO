@@ -25,7 +25,7 @@ public class Veterinarian extends Employee{
         int resp = 0;
         for (Species s : _responsibilities) {
             if (s.getAnimalSize() != 0) {
-                resp += s.getVetCount() / s.getAnimalSize();
+                resp += s.getAnimalSize() / s.getVetCount();
             }   
         }
         return 20 - resp;
