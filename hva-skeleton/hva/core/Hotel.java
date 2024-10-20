@@ -260,9 +260,13 @@ public class Hotel implements Serializable {
   }
 
   public void addResponsibility(String employeeId, String responsibilityId) throws UnknownEmployeeKeyExceptionCore, UnknownResponsibilityKeyExceptionCore{
-    if (!_employees.containsKey(employeeId) | (!_habitats.containsKey(responsibilityId) & !_species.containsKey(responsibilityId))) {
+    if (!_employees.containsKey(employeeId)) {
       throw new UnknownEmployeeKeyExceptionCore(employeeId);
-    } 
+    }
+
+    if (!_habitats.containsKey(responsibilityId) & !_species.containsKey(responsibilityId)) {
+      throw new UnknownResponsibilityKeyExceptionCore(responsibilityId);
+    }
 
     Employee employee = _employees.get(employeeId);
     Habitat habitat = _habitats.get(responsibilityId);
@@ -278,6 +282,30 @@ public class Hotel implements Serializable {
       }
     }
 
+  }
+
+  public void removeResponsibility(String employeeId, String responsibilityId) throws UnknownEmployeeKeyExceptionCore, UnknownResponsibilityKeyExceptionCore {
+    if (!_employees.containsKey(employeeId)) {
+      throw new UnknownEmployeeKeyExceptionCore(employeeId);
+    }
+
+    if (!_habitats.containsKey(responsibilityId) & !_species.containsKey(responsibilityId)) {
+      throw new UnknownResponsibilityKeyExceptionCore(responsibilityId);
+    }
+
+    Employee employee = _employees.get(employeeId);
+    Habitat habitat = _habitats.get(responsibilityId);
+    Species species = _species.get(responsibilityId);
+
+    try {
+      employee.removeResponsibility(habitat);
+    } catch (Exception e) {
+      try {
+        employee.removeResponsibility(species);
+      } catch (Exception d) {
+        throw new UnknownResponsibilityKeyExceptionCore(responsibilityId);
+      }
+    }
   }
 
   @Override

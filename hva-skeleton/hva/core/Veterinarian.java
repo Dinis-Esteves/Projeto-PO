@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
+import hva.core.exception.UnknownResponsibilityKeyExceptionCore;
 
 public class Veterinarian extends Employee{
 
@@ -26,13 +27,24 @@ public class Veterinarian extends Employee{
     }
 
     @Override
-    public void addResponsibility(Object object) throws ClassCastException, NullPointerException{
+    public void addResponsibility(Object object) throws ClassCastException, NullPointerException {
         if (object == null) {
             throw new NullPointerException();
         }
         Species species = (Species) object;
-        if (!_responsibilities.contains(object))
+        if (!_responsibilities.contains(species))
             _responsibilities.add(species);
+    }
+
+    @Override
+    public void removeResponsibility(Object object) throws NullPointerException, ClassCastException, UnknownResponsibilityKeyExceptionCore{
+        if (object == null) {
+            throw new NullPointerException();
+        }
+        Species species = (Species) object;
+        if (!_responsibilities.contains(species))
+            throw new UnknownResponsibilityKeyExceptionCore("");
+        _responsibilities.remove(species);
     }
 
     @Override

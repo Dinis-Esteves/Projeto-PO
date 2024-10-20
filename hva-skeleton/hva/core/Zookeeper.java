@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import hva.core.exception.UnknownResponsibilityKeyExceptionCore;
+
 public class Zookeeper extends Employee{
 
     private ArrayList<Habitat> _responsibilities;
@@ -34,6 +36,17 @@ public class Zookeeper extends Employee{
         Habitat habitat = (Habitat) object;
         if (!_responsibilities.contains(object))
             _responsibilities.add(habitat);
+    }
+
+    @Override
+    public void removeResponsibility(Object object) throws NullPointerException, ClassCastException, UnknownResponsibilityKeyExceptionCore{
+        if (object == null) {
+            throw new NullPointerException();
+        }
+        Habitat habitat = (Habitat) object;
+        if (!_responsibilities.contains(habitat))
+            throw new UnknownResponsibilityKeyExceptionCore("");
+        _responsibilities.remove(habitat);
     }
 
     @Override
