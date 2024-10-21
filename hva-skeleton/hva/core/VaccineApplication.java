@@ -14,6 +14,11 @@ public class VaccineApplication {
         _animal = animal;
     }
 
+    @Override
+    public String toString() {
+        return "REGISTO-VACINA|" + _vaccine.getId() + "|" + _veterinarian.getId() + "|" + _animal.getSpeciesId();
+    }
+
     public boolean isCorrect() {
         // needs to be implemented
         return true;

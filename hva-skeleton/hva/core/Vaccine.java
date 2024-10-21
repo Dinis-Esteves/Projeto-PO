@@ -1,8 +1,10 @@
 package hva.core;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class Vaccine extends HotelEntity{
 
@@ -26,6 +28,13 @@ public class Vaccine extends HotelEntity{
         Collections.addAll(_species, species);
     }
 
+    Collection<String> getSpecies() {
+        return _species.stream().collect(Collectors.toList());
+    }
+
+    void addApplication(VaccineApplication application) {
+        _applications.add(application);
+    }
 
     @Override
     public String toString() {

@@ -14,6 +14,7 @@ public class Veterinarian extends Employee{
     protected Veterinarian(String id, String name) {
         super(id, name);
         _responsibilities = new ArrayList<Species>();
+        _vaccines = new LinkedList<VaccineApplication>();
     }
    
     boolean hasPermision(Species specie) {
@@ -52,6 +53,10 @@ public class Veterinarian extends Employee{
             throw new UnknownResponsibilityKeyExceptionCore("");
         _responsibilities.remove(species);
         species.decreaseVetCount();
+    }
+
+    void addApplication(VaccineApplication application) {
+        _vaccines.add(application);
     }
 
     @Override

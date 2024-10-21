@@ -26,12 +26,20 @@ public class Animal extends HotelEntity{
         return Math.round(20 + 3*info[0] - 2*info[1] + info[2]/info[3] + info[4]);
     }
 
-    Species getSpecies() {
+    public Species getSpecies() {
         return _specie;
+    }
+
+    public String getSpeciesId() {
+        return getSpecies().getId();
     }
 
     void setHabitat(Habitat habitat) {
         _habitat = habitat;
+    }
+
+    void addApplication(VaccineApplication application) {
+        _vaccines.add(application);
     }
 
     @Override

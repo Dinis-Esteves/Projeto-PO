@@ -1,6 +1,14 @@
 package hva.app.vaccine;
 
 import hva.core.Hotel;
+import hva.core.exception.UnknownAnimalKeyExceptionCore;
+import hva.core.exception.UnknownVaccineKeyExceptionCore;
+import hva.core.exception.UnknownVeterinarianKeyExceptionCore;
+import hva.core.exception.VeterinarianNotAuthorizedExceptionCore;
+import hva.core.exception.WrongVaccineApplicationCore;
+
+import java.lang.invoke.WrongMethodTypeException;
+
 import hva.app.exception.UnknownAnimalKeyException;
 import hva.app.exception.UnknownVaccineKeyException;
 import hva.app.exception.UnknownVeterinarianKeyException;
@@ -15,11 +23,29 @@ import pt.tecnico.uilib.menus.CommandException;
 class DoVaccinateAnimal extends Command<Hotel> {
   DoVaccinateAnimal(Hotel receiver) {
     super(Label.VACCINATE_ANIMAL, receiver);
-    //FIXME add command fields
+    addStringField("vaccineId", Prompt.vaccineKey());
+    addStringField("vetId", Prompt.veterinarianKey());
+    addStringField("animalId", hva.app.animal.Prompt.animalKey());
   }
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    String vaccineId = stringField("vaccineId");
+    String vetId = stringField("vetId");
+    String animalId = stringField("animalId");
+
+    try {
+      _receiver.vaccinateAnimal(vaccineId, vetId, animalId);
+    } catch (UnknownVaccineKeyExceptionCore e) {
+      throw new UnknownVaccineKeyException(vaccineId);
+    } catch (UnknownAnimalKeyExceptionCore e) {
+      throw new UnknownAnimalKeyException(animalId);
+    } catch (UnknownVeterinarianKeyExceptionCore e) {
+      throw new UnknownVeterinarianKeyException(vetId);
+    } catch (VeterinarianNotAuthorizedExceptionCore e) {
+      throw new VeterinarianNotAuthorizedException(vetId, _receiver.getAnimal(animalId).getSpeciesId());
+    } catch (WrongVaccineApplicationCore e) {
+      Message.wrongVaccine(vaccineId, animalId);
+    }
   }
 }

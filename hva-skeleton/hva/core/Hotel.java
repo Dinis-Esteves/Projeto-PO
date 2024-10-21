@@ -238,7 +238,7 @@ public class Hotel implements Serializable {
     }
   }
 
-  public void vaccinateAnimal(String vaccineId, String vetId, String animalId) throws UnknownVaccineKeyExceptionCore, UnknownAnimalKeyExceptionCore, UnknownVeterinarianKeyExceptionCore, VeterinarianNotAuthorizedExceptionCore {
+  public void vaccinateAnimal(String vaccineId, String vetId, String animalId) throws UnknownVaccineKeyExceptionCore, UnknownAnimalKeyExceptionCore, UnknownVeterinarianKeyExceptionCore, VeterinarianNotAuthorizedExceptionCore, WrongVaccineApplicationCore {
     if (!_vacinnes.containsKey(vaccineId.toLowerCase())) {
       throw new UnknownVaccineKeyExceptionCore(vaccineId);
     }
@@ -255,12 +255,21 @@ public class Hotel implements Serializable {
     Vaccine vaccine = _vacinnes.get(vaccineId.toLowerCase());
     Veterinarian vet = (Veterinarian) _employees.get(vetId.toLowerCase());
 
-    if (vet.hasPermision(animal.getSpecies())) {
+    if (!vet.hasPermision(animal.getSpecies())) {
       throw new VeterinarianNotAuthorizedExceptionCore();
     }
 
-    
+    VaccinationResult result = calculateDamage(animalId, vaccine);
 
+    VaccineApplication application = new VaccineApplication(result, vaccine, vet, animal);
+
+    _applications.add(application);
+    vaccine.addApplication(application);
+    vet.addApplication(application);
+    animal.addApplication(application);
+
+    if (result != VaccinationResult.NORMAL)
+      throw new WrongVaccineApplicationCore();
   }
 
   public void addResponsibility(String employeeId, String responsibilityId) throws UnknownEmployeeKeyExceptionCore, UnknownResponsibilityKeyExceptionCore{
@@ -326,6 +335,56 @@ public class Hotel implements Serializable {
     return globalSatisfaction;
   }
   
+  public VaccinationResult calculateDamage(String species, Vaccine vaccine) {
+    int damage = 0;
+    boolean same = true;
+    for (String speciesId : vaccine.getSpecies()) {
+      Species currentSpecies = getSpecies(speciesId);
+
+      StringBuilder sb = new StringBuilder(currentSpecies.getName());
+      int count = 0;
+      
+
+        // calcula o numero de caracteres comuns entre duas Strings
+        for (char caracter : species.toCharArray()) {
+            for (int i = 0; i < sb.length(); i++) {
+                if (sb.charAt(i) == caracter) {
+                    sb.deleteCharAt(i);
+                    count++;
+                    break;
+                }
+            }
+        }
+
+      // calcula a maior das duas string - o numero de caracteres comuns
+      count = Math.max(currentSpecies.getName().length(), species.length()) - count;
+
+      //guarda o maior valor já calculado 
+      if (count>damage) {
+        damage = count;
+        same = currentSpecies.getName().equals(species);
+      }
+    }
+
+    switch (damage) {
+      case 0:
+        if (same)
+          return VaccinationResult.NORMAL;
+        return VaccinationResult.CONFUSÃO;
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return VaccinationResult.ACIDENTE;
+      default:
+        return VaccinationResult.ERRO;
+    }
+  }
+  
+  public Collection<VaccineApplication> getApplications() {
+    return _applications.stream().collect(Collectors.toList());
+  } 
+
   @Override
   public int hashCode() {
     return _vacinnes.hashCode() + _animals.hashCode() + _applications.hashCode() + _employees.hashCode() + _habitats.hashCode() +

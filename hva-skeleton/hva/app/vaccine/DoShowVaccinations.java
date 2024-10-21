@@ -1,6 +1,9 @@
 package hva.app.vaccine;
 
+import java.util.Iterator;
+
 import hva.core.Hotel;
+import hva.core.VaccineApplication;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
@@ -16,6 +19,14 @@ class DoShowVaccinations extends Command<Hotel> {
   
   @Override
   protected final void execute() {
-    //FIXME implement command
+    Iterator iter = _receiver.getApplications().iterator();
+
+    while (iter.hasNext()) {
+      VaccineApplication current = (VaccineApplication) iter.next();
+
+      _display.addLine(current.toString());
+
+    }
+    _display.display();
   }
 }
