@@ -1,6 +1,8 @@
 package hva.core;
 
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class Animal extends HotelEntity{
 
@@ -32,6 +34,10 @@ public class Animal extends HotelEntity{
 
     public String getSpeciesId() {
         return getSpecies().getId();
+    }
+
+    public Collection<VaccineApplication> getApplications() {
+        return _vaccines.stream().collect(Collectors.toList());
     }
 
     void setHabitat(Habitat habitat) {
