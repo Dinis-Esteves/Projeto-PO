@@ -45,7 +45,8 @@ class DoVaccinateAnimal extends Command<Hotel> {
     } catch (VeterinarianNotAuthorizedExceptionCore e) {
       throw new VeterinarianNotAuthorizedException(vetId, _receiver.getAnimal(animalId).getSpeciesId());
     } catch (WrongVaccineApplicationCore e) {
-      Message.wrongVaccine(vaccineId, animalId);
+      _display.addLine(Message.wrongVaccine(vaccineId, animalId));
+      _display.display();
     }
   }
 }

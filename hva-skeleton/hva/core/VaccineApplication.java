@@ -14,6 +14,10 @@ public class VaccineApplication {
         _animal = animal;
     }
 
+    public String getResult() {
+        return _result.name();
+    }
+
     @Override
     public String toString() {
         return "REGISTO-VACINA|" + _vaccine.getId() + "|" + _veterinarian.getId() + "|" + _animal.getSpeciesId();

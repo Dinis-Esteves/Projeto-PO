@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,27 @@ public class Animal extends HotelEntity{
         _habitat = habitat;
     }
 
+    private String getApplicationsResults() {
+        
+        if (_vaccines.size() == 0) {
+            return "VOID";
+        }
+
+        String results = _vaccines.getFirst().getResult();
+
+        Iterator iter = _vaccines.iterator();
+
+        // manda fora o primeiro, pois já está incluso
+        iter.next();
+
+        while (iter.hasNext()) {
+            VaccineApplication v = (VaccineApplication) iter.next();
+            results += "," + v.getResult();
+        }
+
+        return results;
+    }
+
     void addApplication(VaccineApplication application) {
         _vaccines.add(application);
     }
@@ -51,6 +73,6 @@ public class Animal extends HotelEntity{
     @Override
     public String toString() {
         return "ANIMAL|" + super.getId() + "|" + super.getName()  + "|" 
-            + _specie.getId() + "|" + "VOID" + "|" + _habitat.getId();
+            + _specie.getId() + "|" + getApplicationsResults() + "|" + _habitat.getId();
     }
 }

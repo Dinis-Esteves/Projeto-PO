@@ -259,7 +259,7 @@ public class Hotel implements Serializable {
       throw new VeterinarianNotAuthorizedExceptionCore();
     }
 
-    VaccinationResult result = calculateDamage(animalId, vaccine);
+    VaccinationResult result = calculateDamage(animal.getSpecies().getName(), vaccine);
 
     VaccineApplication application = new VaccineApplication(result, vaccine, vet, animal);
 
@@ -268,7 +268,7 @@ public class Hotel implements Serializable {
     vet.addApplication(application);
     animal.addApplication(application);
 
-    if (result != VaccinationResult.NORMAL)
+    if (!result.name().equals(VaccinationResult.NORMAL.name()))
       throw new WrongVaccineApplicationCore();
   }
 
@@ -336,7 +336,7 @@ public class Hotel implements Serializable {
   }
   
   public VaccinationResult calculateDamage(String species, Vaccine vaccine) {
-    int damage = 0;
+    int damage = Integer.MAX_VALUE;
     boolean same = true;
     for (String speciesId : vaccine.getSpecies()) {
       Species currentSpecies = getSpecies(speciesId);
@@ -360,16 +360,18 @@ public class Hotel implements Serializable {
       count = Math.max(currentSpecies.getName().length(), species.length()) - count;
 
       //guarda o maior valor já calculado 
-      if (count>damage) {
+      if (count<=damage) {
         damage = count;
         same = currentSpecies.getName().equals(species);
+        
       }
     }
 
     switch (damage) {
       case 0:
-        if (same)
+        if (same) {
           return VaccinationResult.NORMAL;
+        }
         return VaccinationResult.CONFUSÃO;
       case 1:
       case 2:

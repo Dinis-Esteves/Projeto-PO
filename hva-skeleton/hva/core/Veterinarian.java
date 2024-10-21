@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -57,6 +58,10 @@ public class Veterinarian extends Employee{
 
     void addApplication(VaccineApplication application) {
         _vaccines.add(application);
+    }
+
+    public Collection<VaccineApplication> getApplications() {
+        return _vaccines.stream().collect(Collectors.toList());
     }
 
     @Override

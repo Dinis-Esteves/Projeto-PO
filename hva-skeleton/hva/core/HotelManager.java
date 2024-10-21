@@ -62,7 +62,7 @@ public class HotelManager {
           _hotel = (Hotel) obIn.readObject();
           _savedHash = _hotel.hashCode();
         } catch (Exception e) {
-          System.out.println(e.toString());
+          System.err.println(e.toString());
           throw new UnavailableFileException(filename);
         }
 
