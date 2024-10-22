@@ -36,7 +36,7 @@ class DoOpenFile extends Command<HotelManager> {
         } catch (MissingFileAssociationException | FileNotFoundException e) {
           try {
             _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
-          } catch (Exception d) {
+          } catch (MissingFileAssociationException | IOException d) {
             System.err.println(Message.fileNotFound());
           }
         } catch (IOException e) {

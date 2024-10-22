@@ -238,7 +238,7 @@ public class Hotel implements Serializable {
     }
   }
 
-  public void vaccinateAnimal(String vaccineId, String vetId, String animalId) throws UnknownVaccineKeyExceptionCore, UnknownAnimalKeyExceptionCore, UnknownVeterinarianKeyExceptionCore, VeterinarianNotAuthorizedExceptionCore, WrongVaccineApplicationCore {
+  public void vaccinateAnimal(String vaccineId, String vetId, String animalId) throws UnknownVaccineKeyExceptionCore, UnknownAnimalKeyExceptionCore, UnknownVeterinarianKeyExceptionCore, VeterinarianNotAuthorizedExceptionCore, WrongVaccineApplicationCore, ClassCastException {
     if (!_vacinnes.containsKey(vaccineId.toLowerCase())) {
       throw new UnknownVaccineKeyExceptionCore(vaccineId);
     }
@@ -247,7 +247,7 @@ public class Hotel implements Serializable {
       throw new UnknownAnimalKeyExceptionCore(animalId);
     }
 
-    if (!_employees.containsKey(vetId.toLowerCase()) | !(_employees.get(vetId.toLowerCase()) instanceof Veterinarian)) {
+    if (!_employees.containsKey(vetId.toLowerCase())) {
       throw new UnknownVeterinarianKeyExceptionCore(vetId);
     }
 

@@ -40,7 +40,7 @@ class DoVaccinateAnimal extends Command<Hotel> {
       throw new UnknownVaccineKeyException(vaccineId);
     } catch (UnknownAnimalKeyExceptionCore e) {
       throw new UnknownAnimalKeyException(animalId);
-    } catch (UnknownVeterinarianKeyExceptionCore e) {
+    } catch (UnknownVeterinarianKeyExceptionCore | ClassCastException e) {
       throw new UnknownVeterinarianKeyException(vetId);
     } catch (VeterinarianNotAuthorizedExceptionCore e) {
       throw new VeterinarianNotAuthorizedException(vetId, _receiver.getAnimal(animalId).getSpeciesId());
