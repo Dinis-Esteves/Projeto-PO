@@ -13,7 +13,7 @@ public class Veterinarian extends Employee{
     private LinkedList<VaccineApplication> _vaccines;
 
     protected Veterinarian(String id, String name) {
-        super(id, name);
+        super(id, name, new ConcreteCalculateSatisfactionVet());
         _responsibilities = new ArrayList<Species>();
         _vaccines = new LinkedList<VaccineApplication>();
     }
@@ -22,15 +22,13 @@ public class Veterinarian extends Employee{
         return _responsibilities.contains(specie);
     }
 
+    Collection<Species> getSpecies() {
+        return _responsibilities.stream().collect(Collectors.toList());
+    }
+
     @Override
     public int computeSatisfaction() {
-        int resp = 0;
-        for (Species s : _responsibilities) {
-            if (s.getAnimalSize() != 0) {
-                resp += s.getAnimalSize() / s.getVetCount();
-            }   
-        }
-        return 20 - resp;
+        return this.getCalculationMethod().calculateSatisfaction(this);
     }
 
     @Override

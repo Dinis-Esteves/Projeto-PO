@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -11,8 +12,12 @@ public class Zookeeper extends Employee{
     private ArrayList<Habitat> _responsibilities;
 
     protected Zookeeper(String id, String name) {
-        super(id, name);
+        super(id, name, new ConcreteCalculateSatisfactionKeeper());
         _responsibilities = new ArrayList<Habitat>();
+    }
+
+    Collection<Habitat> getHabitats() {
+        return _responsibilities.stream().collect(Collectors.toList());
     }
 
     @Override
@@ -53,10 +58,6 @@ public class Zookeeper extends Employee{
 
     @Override
     public int computeSatisfaction() {
-        int resp = 0;
-        for (Habitat h : _responsibilities) {
-            resp += h.calculateWork()/h.getKeeperCount();
-        }
-        return 300 - resp;
+        return this.getCalculationMethod().calculateSatisfaction(this);
     }
 }
