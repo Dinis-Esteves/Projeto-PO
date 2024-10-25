@@ -72,7 +72,7 @@ public class Animal extends HotelEntity{
 
     @Override
     public String toString() {
-        return "ANIMAL|" + super.getId() + "|" + super.getName()  + "|" 
+        return "ANIMAL|" + getId() + "|" + getName()  + "|" 
             + _specie.getId() + "|" + getApplicationsResults() + "|" + _habitat.getId();
     }
 }

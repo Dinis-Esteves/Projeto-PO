@@ -101,13 +101,13 @@ public class Parser {
         }
 
     }
-    private void parseEmployee(String[] components, String EmployeeType) throws UnrecognizedEntryException {
+    private void parseEmployee(String[] components, String employeeType) throws UnrecognizedEntryException {
         try {
             String id = components[1];
             String name = components[2];
             String[] listOfReponsibilities = {};
 
-            _hotel.registerEmployee(id, name, EmployeeType);
+            _hotel.registerEmployee(id, name, employeeType);
 
             if (components.length == 4) {
                 listOfReponsibilities = components[3].split(",");

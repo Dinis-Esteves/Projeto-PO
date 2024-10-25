@@ -125,7 +125,7 @@ public class Habitat extends HotelEntity {
 
     @Override
     public String toString() {
-        return "HABITAT" + "|" + super.getId() + "|" + super.getName()  + "|" + _area + "|" + _trees.size();
+        return "HABITAT" + "|" + getId() + "|" + getName()  + "|" + _area + "|" + _trees.size();
     }
 
     int calculateWork() {
