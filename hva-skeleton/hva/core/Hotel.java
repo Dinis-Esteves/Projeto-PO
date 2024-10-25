@@ -223,7 +223,7 @@ public class Hotel implements Serializable {
   }
 
   public Tree plantTree(String habitatId, String treeId, String treeName, int age, int cleaningEffort, int type) throws DuplicateTreeKeyExceptionCore, UnknownHabitatKeyExceptionCore {
-    if (!_habitats.containsKey(habitatId)) {
+    if (!_habitats.containsKey(habitatId.toLowerCase())) {
       throw new UnknownHabitatKeyExceptionCore(habitatId);
     }
     
